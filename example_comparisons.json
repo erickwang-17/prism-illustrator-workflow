@@ -1,0 +1,51 @@
+{
+  "group_order": [
+    "Vav-Cre",
+    "Atm",
+    "Nras",
+    "NAtm",
+    "NA-/-"
+  ],
+  "comparisons": [
+    {
+      "panel": "DEMO",
+      "condition": "synthetic",
+      "reference": "Vav-Cre",
+      "target": "Atm",
+      "p_adjusted": "0.001",
+      "test": "DEMO_ONLY",
+      "correction": "supplied_demo_adjusted_values",
+      "family": "demo_family"
+    },
+    {
+      "panel": "DEMO",
+      "condition": "synthetic",
+      "reference": "Vav-Cre",
+      "target": "Nras",
+      "p_adjusted": "0.00001",
+      "test": "DEMO_ONLY",
+      "correction": "supplied_demo_adjusted_values",
+      "family": "demo_family"
+    },
+    {
+      "panel": "DEMO",
+      "condition": "synthetic",
+      "reference": "Vav-Cre",
+      "target": "NAtm",
+      "p_adjusted": "0.2",
+      "test": "DEMO_ONLY",
+      "correction": "supplied_demo_adjusted_values",
+      "family": "demo_family"
+    },
+    {
+      "panel": "DEMO",
+      "condition": "synthetic",
+      "reference": "Vav-Cre",
+      "target": "NA-/-",
+      "p_adjusted": "0.01",
+      "test": "DEMO_ONLY",
+      "correction": "supplied_demo_adjusted_values",
+      "family": "demo_family"
+    }
+  ]
+}

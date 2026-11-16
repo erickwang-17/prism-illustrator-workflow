@@ -1,0 +1,28 @@
+{
+  "tolerance_pt": 0.1,
+  "grid_pt": 72,
+  "panels": [
+    {
+      "id": "A",
+      "row": 1,
+      "column": 1,
+      "baseline_pt": 144,
+      "x_origin_pt": 72,
+      "label_top_pt": 20,
+      "grid_required": true
+    },
+    {
+      "id": "B",
+      "row": 1,
+      "column": 2,
+      "baseline_pt": 144,
+      "x_origin_pt": 288,
+      "label_top_pt": 20,
+      "grid_required": true,
+      "legend_gap_pt": 36,
+      "expected_legend_gap_pt": 36,
+      "legend_bottom_gap_pt": 36,
+      "expected_legend_bottom_gap_pt": 36
+    }
+  ]
+}

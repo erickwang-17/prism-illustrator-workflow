@@ -1,0 +1,5 @@
+panel,condition,group,observation_id,sample_id,value,unit
+DEMO,synthetic,Ctrl,demo-001,synthetic-01,0,g
+DEMO,synthetic,Ctrl,demo-002,synthetic-02,,g
+DEMO,synthetic,Treatment,demo-003,synthetic-03,1.25,g
+DEMO,synthetic,Treatment,demo-004,synthetic-04,1.25,g

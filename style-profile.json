@@ -1,0 +1,33 @@
+{
+  "font": "Arial",
+  "star_font_size_pt": 10,
+  "star_bold": true,
+  "axis_title_bold": true,
+  "axis_tick_text_bold": true,
+  "n_italic": true,
+  "group_order": [
+    "Vav-Cre",
+    "Atm",
+    "Nras",
+    "NAtm",
+    "NA+/-",
+    "NA-/-"
+  ],
+  "error_color": "Black",
+  "error_layer": "above_symbols",
+  "symbol_border_color": "Black",
+  "symbol_shape": "native_circle",
+  "exact_color_reference": null,
+  "verified_numeric_palette": null,
+  "error_width_pt": null,
+  "symbol_border_width_pt": null,
+  "grid_spacing_pt": null,
+  "legend_gap_grid_fraction_except_A": 0.5,
+  "needs_reference_measurement": [
+    "exact_color_reference",
+    "verified_numeric_palette",
+    "error_width_pt",
+    "symbol_border_width_pt",
+    "grid_spacing_pt"
+  ]
+}
