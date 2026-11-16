@@ -14,7 +14,7 @@ from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from figureflow_lint import lint_manifest, list_rules
 
-__version__ = '0.4.1'
+__version__ = '0.5.0'
 
 
 def sha256(path):

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "dataset": "UCI Mice Protein Expression, DOI 10.24432/C50S3Z",
+  "download_url": "https://archive.ics.uci.edu/static/public/342/mice+protein+expression.zip",
+  "archive_sha256": "5b46e1f4e104506397db9c1968e7ea43adceec844a2f55ed5cb38a944057a26d",
+  "member": "Data_Cortex_Nuclear.xls",
+  "member_sha256": "af7e7fa94ffb82f4edb4590d46d9c9075b71b2c3ede8d37934bef569c251e3c1",
+  "biological_unit": "mouse; 15 RPPA measurements are not 15 animals",
+  "aggregation": "median of available technical measurements; at least 8 of 15 required per mouse/protein",
+  "primary_method": "two-sided Welch t on mouse summaries, original supplied expression scale",
+  "contrasts": [
+    {"id": "trisomy_CS_drug", "a": "t-CS-m", "b": "t-CS-s"},
+    {"id": "CS_genotype_saline", "a": "t-CS-s", "b": "c-CS-s"}
+  ],
+  "family": "all 77 proteins times both contrasts = 154 planned tests; unavailable tests assigned p=1 only for adjustment",
+  "correction": "Benjamini-Hochberg FDR; Benjamini-Yekutieli sensitivity for arbitrary dependence",
+  "sensitivity": "mean instead of median aggregation, same family and BH adjustment; not an independent replication",
+  "display_proteins": ["DYRK1A_N", "pERK_N", "pAKT_N", "pCREB_N"],
+  "pca": "descriptive only; retain proteins observed in all 72 mouse summaries; z-score each protein; no imputation",
+  "exclusions": "no mice removed; insufficient mouse/protein cells remain missing",
+  "limitations": ["Exploratory reanalysis, not reproduction of the source SOM or three-level mixed model", "Unknown litter/batch structure is not adjusted; between-mouse independence remains an assumption", "No causal rescue, behavioral improvement or clinical efficacy claim", "Small groups, missingness and dilution aggregation can influence results", "BH control requires independence or suitable positive dependence; BY is also reported", "Pointwise 95% intervals are not multiplicity-adjusted"]
+}

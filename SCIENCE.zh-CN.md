@@ -112,3 +112,7 @@ Pearson 的 P/CI 有其模型假设；软件不会用一次正态性检验替研
 另测：缺失日志、常数退化、重复 ID、公式缓存、百分比声明、非法数值、过期输入、输出防覆盖、缺字体、文字裁切、调色板与通用样式。
 
 方法实现依据官方文档：[Welch t](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html)、[配对 t](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_rel.html)、[ANOVA](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f_oneway.html)、[Kruskal](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kruskal.html)、[Pearson](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.pearsonr.html)、[Spearman](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.spearmanr.html)、[Fisher](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.fisher_exact.html)、[Matplotlib 导出](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.savefig.html)、[openpyxl](https://openpyxl.readthedocs.io/en/stable/tutorial.html)。
+
+## 真实生物完整案例
+
+[EXAMPLE_BIOLOGY.zh-CN.md](EXAMPLE_BIOLOGY.zh-CN.md)提供单独的固定 UCI 小鼠蛋白再分析：审计技术重复后汇总、154 项 BH/BY 家族及完整蛋白 PCA。专用 XLS 读取器使用 [science] 中的 xlrd；不代表通用 analyze 已支持任意组学或复现原分层模型。

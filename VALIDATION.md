@@ -2,6 +2,10 @@
 
 **English** | [简体中文](VALIDATION.zh-CN.md)
 
+## v0.5 · Public biological case
+
+Local Python 3.13: 103 tests passed. Eight new tests use synthetic data only. The real-data run audited 1,080 records/72 mice/77 proteins, 1,396 missing measurements and one negative value, preserving the source workbook hash. All 154 Welch results/CI and BH/BY vectors were cross-checked against SciPy. The eight-panel PNG was visually reviewed. The pinned dataset was downloaded explicitly outside CI. See [case](EXAMPLE_BIOLOGY.md) and [remaining improvements](IMPROVEMENTS.md); no source-paper replication, native-app edit or universally valid biological inference is claimed.
+
 ## v0.4.1 · Bilingual documentation
 
 On 2026-11-16, local Python 3.13 passed all 95 tests after localization. Eleven English/Chinese document pairs have valid local links; both 81-item workflows and checklist IDs/non-description fields match. Both checklists retain unresolved initial states. These are documentation/compatibility checks, not new scientific or live-API acceptance.

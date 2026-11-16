@@ -4,7 +4,7 @@
 
 [![Tests](https://github.com/erickwang-17/prism-illustrator-workflow/actions/workflows/ci.yml/badge.svg)](https://github.com/erickwang-17/prism-illustrator-workflow/actions/workflows/ci.yml)
 
-**v0.4.1** · Python 3.10+ · Standard-library audits + optional scientific computing · Separate native-figure acceptance
+**v0.5.0** · Python 3.10+ · Standard-library audits + optional scientific computing · Separate native-figure acceptance
 
 [API setup and troubleshooting](AI_API.md) · [General analysis and plotting](SCIENCE.md) · [Workflow](WORKFLOW.md) · [Rules](RULES.md) · [Task template](TASK_TEMPLATE.md) · [Agent entry point](SKILL.md) · [12 design references](REFERENCES.md) · [Changelog](CHANGELOG.md)
 
@@ -12,7 +12,7 @@ Executable verification tools and an 81-item workflow distinguish data/analysis 
 
 `inspect/analyze` read CSV, TSV and XLSX using explicit column mappings and experimental designs, then export results, provenance and SVG/PDF/PNG figures. Supported designs include independent groups, two-condition pairs, correlation, 2×2 contingency tables and descriptive time series. See the [support matrix and limitations](SCIENCE.md). Experimental-design decisions, native Prism/Illustrator editing and final visual review remain separate responsibilities. Arbitrary data cannot be guaranteed error-free results.
 
-The repository contains workflow materials, code and explicitly synthetic examples, without raw experimental projects or chat transcripts. English and Chinese documents share one implementation, command syntax, schemas and rule IDs. Checklist translations have identical IDs and initial states; choose one language for each task's evidence record. CLI messages and machine-readable keys remain English; documentation language does not constrain user data or questions.
+The repository contains workflow code, a licensed public biological case with derived results, and synthetic regression fixtures. It contains no private experimental projects or chat transcripts. English and Chinese documents share one implementation, command syntax, schemas and rule IDs. Checklist translations have identical IDs and initial states; choose one language for each task's evidence record. CLI messages and machine-readable keys remain English; documentation language does not constrain user data or questions.
 
 ## Optional API: recommended initial setup
 
@@ -20,17 +20,24 @@ For difficult analysis or plotting problems, the optional API can suggest diagno
 
 `ai-prepare` / `ai-ask` provide a review-before-send workflow; `analyze --ai-help` sends one fixed problem category only after failure. Responses and Chat Completions text protocols support configurable endpoints and models. Advice is never executed automatically and cannot change data, replace a test or turn a failure into acceptance. All existing offline functionality remains available without API setup.
 
+## Main example: real biological data
+
+Start with the [mouse cortex protein case study](EXAMPLE_BIOLOGY.md): a licensed UCI dataset, 72 mice, 77 proteins, eight experimental groups and 1,080 technical measurements. It includes mouse-level provenance, missingness QC, two planned contrasts with 154-test FDR correction, sensitivity analysis and an eight-panel vector figure. See the [continuously updated improvement log](IMPROVEMENTS.md).
+
+![Real biological case study](example_biology.png)
+
+The result after BH correction is **no significant protein in these two comparisons**. The example keeps that result, reports effects/CI, and explains why raw P values or technical repeats cannot manufacture evidence. It is a new exploratory analysis, not a reproduction of the source paper's statistical method.
+
 ## Quick start
 
-Use Python 3.10 or later. Install the scientific extra for the complete tests and cross-domain examples:
+Use Python 3.10 or later. Install the scientific extra for the complete tests and real biological case:
 
 ```sh
 python3 -m venv .venv
 .venv/bin/python -m pip install '.[science]'
 .venv/bin/python -m unittest discover -v
-.venv/bin/python demo_science.py --directory local/demo
-.venv/bin/figureflow inspect local/demo/manufacturing.csv
-.venv/bin/figureflow analyze local/demo/manufacturing.json --output-dir local/review-run
+.venv/bin/python example_biology.py --download --directory local/mice-case
+.venv/bin/figureflow inspect local/mice-case/source_values.csv
 ```
 
 The original audit commands require only the standard library:
@@ -193,8 +200,8 @@ Keep experiments under ignored `local/` or `data/`. `.gitignore` is not comprehe
 
 Changes to verification logic need relevant failure cases. Update corresponding workflow/configuration when a format rule changes and recheck every affected panel. Code tests cannot guarantee all scientific decisions and figures are error-free.
 
-## Synthetic cross-domain previews
+## Synthetic regression fixtures
 
 These are generated test data, not research findings. The U-shaped example demonstrates that Pearson alone does not describe every relationship; the time series is descriptive only.
 
-![Eight synthetic cross-domain figures](demo-gallery.png)
+[Synthetic eight-case test gallery](demo-gallery.png) · `python demo_science.py --directory local/synthetic-demo`

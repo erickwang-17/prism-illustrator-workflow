@@ -4,7 +4,7 @@
 
 [![Tests](https://github.com/erickwang-17/prism-illustrator-workflow/actions/workflows/ci.yml/badge.svg)](https://github.com/erickwang-17/prism-illustrator-workflow/actions/workflows/ci.yml)
 
-**v0.4.1** · Python 3.10+ · 标准库审计 + 可选科学计算 · 原生图形独立验收
+**v0.5.0** · Python 3.10+ · 标准库审计 + 可选科学计算 · 原生图形独立验收
 
 [API 配置与疑难求助](AI_API.zh-CN.md) · [通用分析与作图](SCIENCE.zh-CN.md) · [流程](WORKFLOW.zh-CN.md) · [规则](RULES.zh-CN.md) · [任务模板](TASK_TEMPLATE.zh-CN.md) · [Agent 入口](SKILL.zh-CN.md) · [12 个设计参考](REFERENCES.zh-CN.md) · [更新记录](CHANGELOG.zh-CN.md)
 
@@ -12,7 +12,7 @@
 
 **新增通用分析与代码作图。** `inspect/analyze` 接入 CSV、TSV、XLSX，以明确的列映射和实验设计运行受支持检验，输出结果、追溯记录、SVG/PDF/PNG。适用于独立组、两条件配对、相关、2×2 列联表和描述性时间序列；详见 [支持矩阵与限制](SCIENCE.zh-CN.md)。实验设计判断、原生 Prism/Illustrator 编辑和最终视觉核验仍需工作流审阅，不承诺任意数据自动零错误。
 
-仓库只含工作流、代码及明确标记的模拟示例，没有实验原始文件或聊天记录。
+仓库包含工作流代码、具有明确许可的公开生物案例及衍生结果、明确标记的模拟测试材料，不包含私有实验项目或聊天记录。
 
 提供完整中英双语文档，共用一套实现、命令、字段和规则编号。两份检查清单的 ID 和初始状态完全一致；每个任务选择一种语言填写证据，不必重复填写。命令行提示及机器字段保持英文，用户数据和手动 API 问题可使用中文或英文。
 
@@ -22,17 +22,24 @@
 
 `ai-prepare` / `ai-ask` 支持先审阅再发送；`analyze --ai-help` 仅在失败时发送一次固定问题类别。支持 Responses 与 Chat Completions 协议，模型/服务地址可配。AI 建议不会自动执行、修改数据、替换检验或把失败状态改成通过。未配置 API 仍可离线使用全部原功能。
 
+## 主要案例：真实生物数据
+
+从[小鼠皮层蛋白完整案例](EXAMPLE_BIOLOGY.zh-CN.md)开始：有明确许可的 UCI 数据，72 只小鼠、77 种蛋白、8 个实验组、1,080 次技术测量。包含样本追溯、缺失质控、两个预定比较及 154 项 FDR 校正、敏感性分析和 8 面板矢量图。过程中发现的问题持续写入[完善记录](IMPROVEMENTS.zh-CN.md)。
+
+![真实生物案例](example_biology.png)
+
+本例 BH 校正后，两个比较都**没有达到显著性的蛋白**。保留这一结果、效应量和 CI，说明为什么不能用原始 P 或技术重复制造证据。这是新的探索性分析，不是假称复现原论文统计方法。
+
 ## 快速开始
 
-Python 3.10 或更新版本。先安装可选科学计算组件，再运行完整测试与跨领域案例：
+Python 3.10 或更新版本。先安装可选科学计算组件，再运行完整测试与真实生物案例：
 
 ```sh
 python3 -m venv .venv
 .venv/bin/python -m pip install '.[science]'
 .venv/bin/python -m unittest discover -v
-.venv/bin/python demo_science.py --directory local/demo
-.venv/bin/figureflow inspect local/demo/manufacturing.csv
-.venv/bin/figureflow analyze local/demo/manufacturing.json --output-dir local/review-run
+.venv/bin/python example_biology.py --download --directory local/mice-case
+.venv/bin/figureflow inspect local/mice-case/source_values.csv
 ```
 
 下面的旧审计命令仅需标准库，可直接运行：
@@ -195,8 +202,8 @@ CI 的 Action 用法参考官方 [checkout](https://github.com/actions/checkout)
 
 修改核心核验逻辑时补充对应失败案例测试。修改格式规则时同步工作流/配置，并对全部相关面板重新验收。通过代码测试不等于保证所有科研判断和图像都零错误。
 
-## 跨领域合成案例预览
+## 合成回归测试材料
 
 以下全部为程序生成的合成数据，用于测试，不是研究结果。U 形案例刻意展示 Pearson 摘要不足以描述关系；时间序列仅作描述。
 
-![Eight synthetic cross-domain figures](demo-gallery.png)
+[Synthetic eight-case test gallery](demo-gallery.png) · `python demo_science.py --directory local/synthetic-demo`

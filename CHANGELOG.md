@@ -2,6 +2,13 @@
 
 **English** | [简体中文](CHANGELOG.zh-CN.md)
 
+## 0.5.0 — 2026-11-16
+
+- Replace the main synthetic example with a licensed public mouse-protein case, pinned download, biological-unit/QC audit, 154 planned tests, BH/BY correction, aggregation sensitivity and eight-panel vector output.
+- Publish all comparison results and provenance; retain nonsignificant findings and original values.
+- Add bilingual case documentation and a running improvement log; retain small synthetic regression fixtures.
+- Add eight offline synthetic tests and xlrd to the science extra for the case-specific original XLS reader. Generic analyze designs remain unchanged.
+
 ## 0.4.1 — 2026-11-16
 
 - Add complete English and Simplified Chinese documentation with language links, including task/agent guidance and all 81 checklist requirements.

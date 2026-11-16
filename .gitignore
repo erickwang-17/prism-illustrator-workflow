@@ -25,3 +25,8 @@ dist/
 
 # Reviewed synthetic demonstration only; all other image outputs stay ignored.
 !demo-gallery.png
+
+# Reviewed public-data case outputs; original workbook remains under ignored local/.
+*.xls
+!example_biology.png
+!example_biology.pdf

@@ -112,3 +112,7 @@ Not implemented: survival/Cox, multifactor/mixed-effects models, repeated measur
 Additional checks cover missingness logs, degeneracy, duplicate IDs, formulas, percentage declarations, invalid numbers, changed inputs, output overwrite, fonts/glyphs, text clipping, palettes and generic styling.
 
 Official implementation references: [Welch t](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html), [paired t](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_rel.html), [ANOVA](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f_oneway.html), [Kruskal](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kruskal.html), [Pearson](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.pearsonr.html), [Spearman](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.spearmanr.html), [Fisher](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.fisher_exact.html), [Matplotlib export](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.savefig.html), [openpyxl](https://openpyxl.readthedocs.io/en/stable/tutorial.html).
+
+## Real biological worked example
+
+[EXAMPLE_BIOLOGY.md](EXAMPLE_BIOLOGY.md) adds a separate, fixed UCI mouse-protein reanalysis: audited technical-repeat aggregation, a 154-test BH/BY family and complete-protein PCA. Its XLS adapter uses xlrd from [science]. It does not expand the generic analyze schema to arbitrary omics or reproduce the source hierarchical model.

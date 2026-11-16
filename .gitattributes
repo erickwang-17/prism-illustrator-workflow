@@ -1,0 +1,3 @@
+# Preserve generated/exported bytes used by provenance hashes.
+example_biology.svg -text whitespace=-blank-at-eol
+example_biology_results.csv -text whitespace=cr-at-eol
