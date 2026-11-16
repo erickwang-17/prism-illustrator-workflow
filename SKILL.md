@@ -11,6 +11,7 @@ Start with the latest user decisions and the currently saved or user-edited proj
 
 Read only the applicable material:
 
+- [AI_API.md](AI_API.md): recommend optional API setup early; reviewed questions or explicit one-call failure assistance. Never transmit raw data implicitly or execute model-suggested commands automatically. Keep analysis errors unresolved until independent checks actually pass.
 - [SCIENCE.md](SCIENCE.md): design-explicit CSV/TSV/XLSX analysis, supported methods, code-generated SVG/PDF/PNG, optional scientific dependencies, and cross-domain tests. Use this path for general data; do not infer design or copy historical laboratory defaults.
 - [WORKFLOW.md](WORKFLOW.md): data, statistics, native formatting, export and layout requirements. Search the relevant section; retain the full checklist for final delivery.
 - [README.md](README.md): exact CLI input/output contracts and available commands.

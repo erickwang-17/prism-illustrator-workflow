@@ -1,6 +1,7 @@
 """Local figure audit tools and optional design-explicit scientific analysis.
 
 Never infers experimental design or edits native projects. Analyze requires [science].
+Optional AI: start with ai-setup and ai-doctor; ordinary commands stay offline.
 """
 import argparse
 import csv
@@ -13,7 +14,7 @@ from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from figureflow_lint import lint_manifest, list_rules
 
-__version__ = '0.3.0'
+__version__ = '0.4.0'
 
 
 def sha256(path):
@@ -319,10 +320,25 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__, allow_abbrev=False)
     parser.add_argument('--version', action='version', version='figureflow ' + __version__)
     subs = parser.add_subparsers(dest='command', required=True)
+    p = subs.add_parser('ai-setup', help='Recommended first step: create optional API config, without storing a key')
+    p.add_argument('--config', default='local/ai-config.json'); p.add_argument('--model', required=True)
+    p.add_argument('--base-url', default='https://api.openai.com/v1')
+    p.add_argument('--protocol', choices=('responses','chat_completions'), default='responses')
+    p.add_argument('--api-key-env', default='FIGUREFLOW_API_KEY')
+    p.add_argument('--chat-token-parameter', choices=('max_completion_tokens','max_tokens'), default='max_completion_tokens')
+    p = subs.add_parser('ai-doctor', help='Check API config and key presence locally; no network')
+    p.add_argument('--config', default='local/ai-config.json')
+    p = subs.add_parser('ai-prepare', help='Prepare a reviewable API request without sending it')
+    p.add_argument('--config', default='local/ai-config.json'); p.add_argument('--problem', required=True)
+    p.add_argument('--context', help='Optional reviewed plain-text summary; never attaches other files')
+    p = subs.add_parser('ai-ask', help='Preview a prepared request; --send authorizes one API call')
+    p.add_argument('input'); p.add_argument('--config', default='local/ai-config.json'); p.add_argument('--send', action='store_true')
     p = subs.add_parser('inspect', help='Inspect CSV/TSV/XLSX without inferring design')
     p.add_argument('input'); p.add_argument('--sheet')
     p = subs.add_parser('analyze', help='Run an explicit analysis and render SVG/PDF/PNG')
     p.add_argument('input'); p.add_argument('--output-dir', required=True)
+    p.add_argument('--ai-help', action='store_true', help='On failure, send one fixed error-category summary to the configured API; preserves failure status')
+    p.add_argument('--ai-config', default='local/ai-config.json')
     p = subs.add_parser('audit', help='Compare source and candidate observations exactly')
     p.add_argument('source'); p.add_argument('candidate'); p.add_argument('--exclusions')
     p = subs.add_parser('plan'); p.add_argument('input')
@@ -344,12 +360,29 @@ def main(argv=None):
         p.add_argument('--error-format', choices=('text', 'json'), default='text',
                        help='Format runtime input/file errors on stderr (usage errors remain text)')
     args = parser.parse_args(argv)
+    analysis_started = False
     try:
-        if args.command == 'inspect':
+        if args.out and Path(args.out).exists():
+            raise ValueError('Output report already exists; choose a new file')
+        if args.command.startswith('ai-'):
+            import figureflow_ai as ai
+            if args.command == 'ai-setup':
+                result = ai.setup(args.config,args.model,args.base_url,args.protocol,args.api_key_env,args.chat_token_parameter)
+            elif args.command == 'ai-doctor': result = ai.doctor(args.config)
+            elif args.command == 'ai-prepare':
+                context = None
+                if args.context:
+                    if Path(args.context).stat().st_size > ai.MAX_INPUT*4:
+                        raise ValueError('Context file too large; provide a short reviewed summary')
+                    context = Path(args.context).read_text(encoding='utf-8')
+                result = ai.prepare(ai.load_config(args.config),args.problem,context)
+            else: result = ai.ask(args.config,load_json(args.input),args.send)
+        elif args.command == 'inspect':
             from figureflow_science import inspect_table
             result = inspect_table(args.input, args.sheet)
         elif args.command == 'analyze':
             from figureflow_science import analyze
+            analysis_started = True
             result = analyze(args.input, args.output_dir)
         elif args.command == 'audit':
             result = audit(args.source, args.candidate, load_json(args.exclusions) if args.exclusions else [])
@@ -379,12 +412,24 @@ def main(argv=None):
         else: print(text, end='')
         return 1 if isinstance(result, dict) and result.get('status') == 'fail' else 0
     except (ValueError, OSError, KeyError, TypeError, AttributeError, csv.Error) as e:
+        error = {'status':'error','code':'INPUT001','message':str(e),
+                 'report_version':1,'tool_version':__version__,'command':args.command}
+        if args.command == 'analyze':
+            error['help_hint'] = 'Recommended: configure optional AI with ai-setup, check ai-doctor, then use ai-prepare/ai-ask or --ai-help. See AI_API.md.'
+            if args.ai_help and analysis_started:
+                try:
+                    from figureflow_ai import failure_request, ask
+                    request = failure_request(args.ai_config,e)
+                    error['ai_advice'] = ask(args.ai_config,request,send=True)
+                except (ValueError,OSError,TypeError,KeyError) as ai_error:
+                    error['ai_assistance_error'] = str(ai_error)
         if args.error_format == 'json':
-            print(json.dumps({'status': 'error', 'code': 'INPUT001', 'message': str(e),
-                              'report_version': 1, 'tool_version': __version__,
-                              'command': args.command}, ensure_ascii=False), file=sys.stderr)
+            print(json.dumps(error,ensure_ascii=False),file=sys.stderr)
         else:
-            print('figureflow: ' + str(e), file=sys.stderr)
+            print('figureflow: '+str(e),file=sys.stderr)
+            if 'help_hint' in error: print(error['help_hint'],file=sys.stderr)
+            if 'ai_advice' in error: print(json.dumps(error['ai_advice'],ensure_ascii=False,indent=2),file=sys.stderr)
+            if 'ai_assistance_error' in error: print('AI assistance: '+error['ai_assistance_error'],file=sys.stderr)
         return 2
 
 

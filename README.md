@@ -2,15 +2,21 @@
 
 [![Tests](https://github.com/erickwang-17/prism-illustrator-workflow/actions/workflows/ci.yml/badge.svg)](https://github.com/erickwang-17/prism-illustrator-workflow/actions/workflows/ci.yml)
 
-**v0.3.0** · Python 3.10+ · 标准库审计 + 可选科学计算 · 原生图形独立验收
+**v0.4.0** · Python 3.10+ · 标准库审计 + 可选科学计算 · 原生图形独立验收
 
-[通用分析与作图](SCIENCE.md) · [流程](WORKFLOW.md) · [规则](RULES.md) · [任务模板](TASK_TEMPLATE.md) · [Agent 入口](SKILL.md) · [12 个设计参考](REFERENCES.md) · [更新记录](CHANGELOG.md)
+[API 配置与疑难求助](AI_API.md) · [通用分析与作图](SCIENCE.md) · [流程](WORKFLOW.md) · [规则](RULES.md) · [任务模板](TASK_TEMPLATE.md) · [Agent 入口](SKILL.md) · [12 个设计参考](REFERENCES.md) · [更新记录](CHANGELOG.md)
 
 可执行核验工具 + 81 项工作流清单。用来把“数据与分析正确”和“图像格式正确”分别验收，减少只改一张图、误删数据、旧星号遗留和排版反复偏移。
 
 **新增通用分析与代码作图。** `inspect/analyze` 接入 CSV、TSV、XLSX，以明确的列映射和实验设计运行受支持检验，输出结果、追溯记录、SVG/PDF/PNG。适用于独立组、两条件配对、相关、2×2 列联表和描述性时间序列；详见 [支持矩阵与限制](SCIENCE.md)。实验设计判断、原生 Prism/Illustrator 编辑和最终视觉核验仍需工作流审阅，不承诺任意数据自动零错误。
 
 仓库只含工作流、代码及明确标记的模拟示例，没有实验原始文件或聊天记录。
+
+## 推荐先配置可选 API
+
+遇到难以解决的分析或作图问题，可调用 API 获得诊断、缺失信息和验证建议。先安装项目，然后运行 `figureflow ai-setup --model YOUR_MODEL_ID`，在本机设置密钥环境变量，再用 `figureflow ai-doctor` 检查；详见 [API 配置指南](AI_API.md)。不要把真实密钥发到聊天或提交仓库。
+
+`ai-prepare` / `ai-ask` 支持先审阅再发送；`analyze --ai-help` 仅在失败时发送一次固定问题类别。支持 Responses 与 Chat Completions 协议，模型/服务地址可配。AI 建议不会自动执行、修改数据、替换检验或把失败状态改成通过。未配置 API 仍可离线使用全部原功能。
 
 ## 快速开始
 
@@ -71,6 +77,8 @@ flowchart TD
 
 | 工具 | 已实现 | 不能据此宣称 |
 |---|---|---|
+| `ai-setup` / `ai-doctor` | 创建不含密钥的配置、本机检查 | 已验证真实 API 连通性和模型权限 |
+| `ai-prepare` / `ai-ask` | 预览请求、显式发送一次、获得建议与用量 | 已解决问题、已执行模型建议、已通过科研验收 |
 | `inspect` | CSV/TSV/XLSX 结构、缺失及数值列检查 | 已推断实验设计或选好检验 |
 | `analyze` | 按显式设计计算检验、n、效应量/CI（支持项）、校正 P，输出矢量图与哈希报告 | 任何设计均受支持、假设已成立、已编辑原生 Prism/AI |
 | `audit` | CSV 逐点/元数据比较，精确数值比较，排除项核对，观察值/样本计数，源和目标哈希 | 已验证实验真实性、CSV 提取正确或生物学独立性 |

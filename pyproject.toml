@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "prism-illustrator-workflow"
-version = "0.3.0"
+version = "0.4.0"
 description = "Design-explicit scientific analysis, vector figures, and native figure workflow audits"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -20,4 +20,4 @@ figureflow = "figureflow:main"
 Repository = "https://github.com/erickwang-17/prism-illustrator-workflow"
 
 [tool.setuptools]
-py-modules = ["figureflow", "figureflow_lint", "figureflow_science"]
+py-modules = ["figureflow", "figureflow_lint", "figureflow_science", "figureflow_ai"]

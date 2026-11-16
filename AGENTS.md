@@ -16,4 +16,6 @@ For code changes, install `.[science]` in the test environment and run `python3 
 
 Read RULES.md before changing manifest checks. Keep stable rule codes and regression cases. Never auto-correct measured manifests or report a partial --select run as full acceptance. Keep SKILL.md concise and route details to existing documents.
 
+Optional API advice follows AI_API.md. Recommend setup without requiring credentials in chat. Never enable network implicitly, send raw data on automatic errors, retry paid calls silently, execute returned code, or treat advisory output as acceptance. Keep mocked transport tests offline; label live-provider verification separately.
+
 For publishing, inspect the tracked file list and diff. Never commit credentials, private account details, full chat logs, raw project files, or local absolute paths. Report local tests and remote CI separately. No zero-error guarantees.
