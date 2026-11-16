@@ -1,0 +1,24 @@
+name: Test figure workflow
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.10', '3.13']
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m unittest -v test_figureflow.py
+      - run: python figureflow.py audit example_data.csv example_data.csv
+      - run: python figureflow.py plan example_comparisons.json
+      - run: python figureflow.py layout example_layout.json
