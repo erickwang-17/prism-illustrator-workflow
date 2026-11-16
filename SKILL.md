@@ -5,6 +5,8 @@ description: Audit experimental figure data, plan significance annotations from 
 
 # Prism–Illustrator workflow
 
+**English** | [简体中文](SKILL.zh-CN.md)
+
 Use this skill from a checkout of this repository; keep its supporting files together. It does not supply native application access. Check the host's available tools before promising native edits.
 
 Start with the latest user decisions and the currently saved or user-edited project. For multi-step figure work, copy [TASK_TEMPLATE.md](TASK_TEMPLATE.md) into an ignored local work directory and fill the inputs, affected panels, exceptions, and acceptance conditions. Do not turn historical sample counts, exclusions, or offsets into defaults.

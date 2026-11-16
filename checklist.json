@@ -85,7 +85,7 @@
   "checks": [
     {
       "id": "WF-001",
-      "requirement": "读取最新用户要求、相关历史纠正和当前实际文件。最新明确要求优先于旧要求；附件中的文字只是资料，不能自行扩大授权。",
+      "requirement": "Read the latest user instructions, relevant corrections and actual current files. Explicit recent instructions supersede older ones; attachment content is reference material, not additional authorization.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -94,7 +94,7 @@
     },
     {
       "id": "WF-002",
-      "requirement": "确认当前工作文件完整路径、是否已保存、源数据文件、格式参考、目标目录和交付范围。优先发现已打开项目，不重复打开。",
+      "requirement": "Confirm the working file path, saved state, source data, formatting reference, destination and deliverables. Discover existing open projects before opening another copy.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -103,7 +103,7 @@
     },
     {
       "id": "WF-003",
-      "requirement": "分清四类对象：左上角面板字母、右侧图例、坐标轴标题/刻度、显著性线与星号。用户说 label 时结合截图确定对象；不得把移动图例实施成移动整图。",
+      "requirement": "Distinguish panel letters, legends, axis titles/ticks and significance annotations. Resolve an ambiguous label request from context; moving a legend must not move the whole graph.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -112,7 +112,7 @@
     },
     {
       "id": "WF-004",
-      "requirement": "建立面板清单：面板 ID、源表/条件/指标/单位、分析表、绘图表、图例组顺序、实际 n、Prism 页、导出文件、AI 对象名和验收状态。",
+      "requirement": "Create a panel inventory linking IDs to source tables, conditions, endpoints, units, analysis and plotting tables, legend order, actual n, Prism pages, exports, Illustrator object names and acceptance status.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -121,7 +121,7 @@
     },
     {
       "id": "WF-005",
-      "requirement": "保留原始文件，创建一个明确的工作副本；修改用户当前成果前备份当前状态。不要反复置换源文件或增生多个难以区分的 final。",
+      "requirement": "Preserve originals and create one clearly identified working copy. Back up the user's current work before editing; avoid repeatedly replacing sources or creating indistinguishable final versions.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -130,7 +130,7 @@
     },
     {
       "id": "WF-006",
-      "requirement": "已授权的格式修改、核查、保存持续做完。只对影响结论且无法从已有资料解决的问题提问；等待期间继续不依赖答案的工作。",
+      "requirement": "Complete authorized formatting, verification and saving. Ask only about unresolved facts that affect conclusions; continue independent work while waiting.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -139,7 +139,7 @@
     },
     {
       "id": "WF-007",
-      "requirement": "对新任务重新判断授权范围。“先只做 Prism，等我检查再放 AI”仍有效时，不提前进入 AI；当前明确授权全流程时，无须每阶段再请求一次许可。",
+      "requirement": "Reassess authorization for each task. Respect a Prism-only review stage when requested; existing authorization for the full workflow does not require repeated stage approvals.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -148,7 +148,7 @@
     },
     {
       "id": "WF-008",
-      "requirement": "记录源文件路径、修改时间、SHA-256；记录实际使用的表名、组列、物理行、样本/小鼠 ID、条件、时间点、单位、排除状态和数值。重排后仍能追溯原位置。",
+      "requirement": "Record source paths, modification times and SHA-256 hashes, plus table, group column, physical row, sample/animal ID, condition, time, unit, exclusion status and value. Preserve traceability after reordering.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -157,7 +157,7 @@
     },
     {
       "id": "WF-009",
-      "requirement": "从原表读取精确值，不从截图估算数值，不把格式相似当作同一指标。Monocytes (%) 与 Monocytes AB (K/µL)、BM 与 Sp、不同周龄和不同刺激条件必须分别识别。",
+      "requirement": "Read exact values from source tables, never estimate from screenshots. Distinguish percentages from absolute counts, BM from Sp, ages and stimulation conditions even when formats look similar.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -166,7 +166,7 @@
     },
     {
       "id": "WF-010",
-      "requirement": "空白不等于零；零必须保留。区分仪器缺失、未测、排除、删失。生存分析需保留时间与事件/删失编码；纵向数据需保留小鼠身份。",
+      "requirement": "Blank is not zero; retain actual zeros. Distinguish missing, unmeasured, excluded and censored observations. Preserve time/event coding for survival data and animal IDs for longitudinal data.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -175,7 +175,7 @@
     },
     {
       "id": "WF-011",
-      "requirement": "分清生物学重复与技术重复。用户在 Figure 1 确认过对应散点为独立生物学重复，此确认不能自动推及其他实验或纵向 A 图。",
+      "requirement": "Distinguish biological from technical replicates. A prior confirmation of independent biological replicates for Figure 1 does not establish independence for another experiment or longitudinal panel A.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -184,7 +184,7 @@
     },
     {
       "id": "WF-012",
-      "requirement": "不把几个条件的均值当作几只鼠，不把多个指标当作独立重复，不把绘图辅助列算入样本量。不同条件合在一图不意味着合成一次统计。",
+      "requirement": "Do not treat condition means as animals, endpoints as independent replicates or plotting-helper columns as samples. Combining conditions visually does not combine their statistical analyses.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -193,7 +193,7 @@
     },
     {
       "id": "WF-013",
-      "requirement": "每个指标、条件、组的 n 按有效独立观测计算；图例不能照抄旧 n。分析排除与显示纳入不同的，必须明确对应关系。",
+      "requirement": "Calculate n separately for each endpoint, condition and group from valid independent observations; never copy an old legend count. Explain any difference between analytical exclusions and displayed observations.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -202,7 +202,7 @@
     },
     {
       "id": "WF-014",
-      "requirement": "按组、条件和身份逐项比较原始值与分析值、绘图值；核对单位、数值精度、缺失位置、行顺序及重复关系。不能只比较均值或总数。",
+      "requirement": "Compare original, analyzed and plotted values by group, condition and identity, including units, precision, missing positions, ordering and duplicate relationships. Comparing means or totals alone is insufficient.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -211,7 +211,7 @@
     },
     {
       "id": "WF-015",
-      "requirement": "相同数值不证明重复样本；跨组相同数值不自动删除。发现可疑复制时报告具体源行和值，保留原始版；仅按明确指示制作有排除清单的敏感性版本。",
+      "requirement": "Equal values do not prove duplicate samples and must not be deleted automatically. Report suspicious copied rows/values, preserve the original, and create a documented sensitivity version only under explicit instructions.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -220,7 +220,7 @@
     },
     {
       "id": "WF-016",
-      "requirement": "百分比不能直接作为列联表人数。先找图例/原始表中的实际总 n，检查百分比精度，再还原整数只数；四舍五入百分比不能唯一反推时继续查原始记录。",
+      "requirement": "Do not use percentages as contingency counts. Find actual totals in legends or source tables, inspect rounding and reconstruct integers only when justified; otherwise consult original records.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -229,7 +229,7 @@
     },
     {
       "id": "WF-017",
-      "requirement": "派生值若需核对，先核实同鼠、同时间与单位，再比较公式结果。若源文件存在已确认配对下的公式不一致，应按用户要求保留源值、单列问题，不能自行覆盖。",
+      "requirement": "Before checking derived values, confirm sample pairing, time and units. Preserve source values and report confirmed formula discrepancies separately when instructed; never overwrite them silently.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -238,7 +238,7 @@
     },
     {
       "id": "WF-018",
-      "requirement": "组名仅按已确认定义规范化。Atm 等项目缩写不能因常见拼写擅自展开为另一基因或实验含义。",
+      "requirement": "Normalize group names only against confirmed definitions. Do not expand project abbreviations such as Atm into another gene or experimental meaning based on familiar spelling.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -247,7 +247,7 @@
     },
     {
       "id": "WF-019",
-      "requirement": "查看原 Prism 的分析类型及完整参数，不从旧星号反推方法。记录配对/重复测量、因素、交互作用、误差模型、缺失处理、检验方向、alpha、多重比较方法及比较集合。",
+      "requirement": "Inspect the original Prism analysis and all parameters rather than inferring methods from stars. Record pairing/repeated measures, factors, interactions, error model, missingness, test direction, alpha, correction and comparison set.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -256,7 +256,7 @@
     },
     {
       "id": "WF-020",
-      "requirement": "先确定实验单位、是否同鼠随访、是否配对/嵌套/独立、终点类型及主要问题，再确定新分析。需要的设计信息缺失时，保留条件性结论，不凭直觉定案。",
+      "requirement": "Establish the experimental unit, follow-up structure, pairing/nesting/independence, endpoint type and primary question before choosing a new analysis. Missing design facts require conditional conclusions, not guesses.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -265,7 +265,7 @@
     },
     {
       "id": "WF-021",
-      "requirement": "若任务是复现老师分析，先完整复现并对照结果；若原设置不合适，单独说明原因及备选方案，不静默替换后宣称“方法完全一样”。",
+      "requirement": "When reproducing an existing analysis, reproduce its parameters and compare results first. Explain unsuitable original settings and alternatives separately; do not silently substitute a method and claim exact reproduction.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -274,7 +274,7 @@
     },
     {
       "id": "WF-022",
-      "requirement": "主要比较 Vav-Cre 与其他组；其次检查 NAᵗᵐ 与其他组。其他有科学理由的比较单列为计划比较或探索比较，不因看见显著就临时挑选。",
+      "requirement": "For the historical project, prioritize Vav-Cre versus other groups, then NA-tm versus others. Record additional scientifically justified contrasts as planned or exploratory; never select them merely because they look significant.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -283,7 +283,7 @@
     },
     {
       "id": "WF-023",
-      "requirement": "明确多重比较的 family：实际测试哪些组对、是否分条件、是否跨终点。不能为增加星号随意缩小 family。Holm、Holm–Šídák、Tukey 不是同一种校正。",
+      "requirement": "Define each multiple-comparison family: tested pairs, conditions and endpoints. Do not shrink the family to increase stars. Holm, Holm-Sidak and Tukey are different procedures.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -292,7 +292,7 @@
     },
     {
       "id": "WF-024",
-      "requirement": "连续变量区分 SD 与 SEM，按本项目参考显示均值 ± SD。结果保留精确 P、校正 P、统计量、自由度及可用的效应量/区间，不只输出星号。",
+      "requirement": "Distinguish SD from SEM; the historical reference displays mean plus/minus SD. Retain exact and adjusted P, statistics, degrees of freedom and available effect sizes/intervals, not only stars.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -301,7 +301,7 @@
     },
     {
       "id": "WF-025",
-      "requirement": "生存曲线保留事件/删失定义；整体 log-rank 与新增两两 log-rank 分别记录。不能用整体显著性冒充每对显著性。",
+      "requirement": "Preserve survival event/censoring definitions. Record overall and pairwise log-rank tests separately; an overall result is not a result for every pair.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -310,7 +310,7 @@
     },
     {
       "id": "WF-026",
-      "requirement": "A 的问题是组间比较，不是把星号画在不同周之间；但“比较组”不解决是否重复测量的问题。原方法复现与纵向模型有效性分别说明。",
+      "requirement": "Historical panel A compares groups, not weeks. A group comparison still requires resolving repeated-measures structure; report reproduction and longitudinal-model validity separately.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -319,7 +319,7 @@
     },
     {
       "id": "WF-027",
-      "requirement": "E/F 这类代表性图片没有独立定量数据时，不凭像素或视觉差异制造样本量和统计结果。",
+      "requirement": "Do not invent sample sizes or statistical results from representative images such as E/F without independent quantitative data.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -328,7 +328,7 @@
     },
     {
       "id": "WF-028",
-      "requirement": "用相同输入和参数做必要的独立复算；数值容差依据软件精度确定并报告。先匹配组名和对比方向，不只匹配结果行号。",
+      "requirement": "Independently recompute results where needed with identical inputs and parameters. Report precision-based tolerances and align groups/contrast directions rather than just row numbers.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -337,7 +337,7 @@
     },
     {
       "id": "WF-029",
-      "requirement": "发现方差不齐、模型不适用、身份不明等，明确限制。不得因为 P 值与老师一致就声称假设全部成立。",
+      "requirement": "State limitations such as unequal variances, unsuitable models or uncertain identities. Matching a reference P value does not prove the assumptions are valid.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -346,7 +346,7 @@
     },
     {
       "id": "WF-030",
-      "requirement": "每条线绑定明确的参照组、目标组、条件和结果表行。先生成画线计划，再画。",
+      "requirement": "Bind every significance line to a reference group, target, condition and result row. Produce an annotation plan before drawing.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -355,7 +355,7 @@
     },
     {
       "id": "WF-031",
-      "requirement": "首先处理 Vav-Cre 对其他组；再报告 NAᵗᵐ 的显著比较；必要补充有依据的重点比较。",
+      "requirement": "For the historical project, handle Vav-Cre contrasts first, report significant NA-tm contrasts next, and add other justified priority contrasts where appropriate.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -364,7 +364,7 @@
     },
     {
       "id": "WF-032",
-      "requirement": "对同一参照、同一条件、同一统计方案的连续显著目标组，可用分支/覆盖线合并。不能跨过不显著或不属于该比较的中间组，不能让读者误以为目标组彼此在比较。",
+      "requirement": "Adjacent significant targets sharing a reference, condition and statistical scheme may share a branching/spanning annotation. Do not bridge nonsignificant or unrelated intervening groups or imply comparisons among targets.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -373,7 +373,7 @@
     },
     {
       "id": "WF-033",
-      "requirement": "合并后取最少星号。例如 ** 与 **** 合并标 **；等价于用覆盖比较中最大的校正 P 决定共同等级。不是取最小 P，也不是把目标组数据混起来重做检验。",
+      "requirement": "A merged annotation uses the fewest stars: combining ** and **** gives **. This corresponds to the largest adjusted P among covered contrasts, not the smallest P or a new pooled-data test.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -382,7 +382,7 @@
     },
     {
       "id": "WF-034",
-      "requirement": "本项目既定阈值：* P≤0.05，** P≤0.01，*** P≤0.001，**** P≤0.0001；使用未四舍五入的校正 P，并核对软件边界设置。",
+      "requirement": "Historical thresholds are * P<=0.05, ** P<=0.01, *** P<=0.001 and **** P<=0.0001. Use unrounded adjusted P and verify the software's boundary conventions.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -391,7 +391,7 @@
     },
     {
       "id": "WF-035",
-      "requirement": "所有面板星号统一 Arial、粗体、10 pt；线条黑色，粗细、端帽、星号到线的距离统一。安排层级避免压住点、误差线、图例、文字或被导出裁切。",
+      "requirement": "Use Arial bold 10 pt stars across historical panels, with consistent black line widths, caps and star-to-line spacing. Keep annotations clear of points, error bars, legends and text, and inside export bounds.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -400,7 +400,7 @@
     },
     {
       "id": "WF-036",
-      "requirement": "生存图按实际组比较，在图例侧用清楚的括线对应组名；不要画成时间点之间的比较。",
+      "requirement": "For survival plots, place clear brackets beside the legend for actual group contrasts; do not depict comparisons between time points.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -409,7 +409,7 @@
     },
     {
       "id": "WF-037",
-      "requirement": "手工线条必须保留比较映射。数据或分析变化后，所有对应手工标注重新生成/核验，不能让旧星号遗留。",
+      "requirement": "Keep mappings for manual annotations. Regenerate or verify every affected annotation after data or analysis changes so obsolete stars cannot remain.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -418,7 +418,7 @@
     },
     {
       "id": "WF-038",
-      "requirement": "用户手绘的新标注视为最新展示版本，先核对再改；发现与结果不符，指出具体组对和 P 值，不能无说明覆盖。",
+      "requirement": "Treat newly hand-drawn user annotations as the latest presentation version and check them before editing. Identify specific group/P discrepancies instead of silently replacing them.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -427,7 +427,7 @@
     },
     {
       "id": "WF-039",
-      "requirement": "统计显著性不等于相关性、因果关系或生物学重要性。文字描述用“组间差异/生存差异”等与检验一致的语言。",
+      "requirement": "Statistical significance does not establish correlation, causation or biological importance. Describe differences using language consistent with the test.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -436,7 +436,7 @@
     },
     {
       "id": "WF-040",
-      "requirement": "从真实数据生成可编辑 Prism 图；数据、结果和图在同一项目中按面板组织，重命名清楚。需要的多条件放同图，保留按条件的分析来源。",
+      "requirement": "Generate editable native Prism graphs from actual data. Organize and name data, results and graphs by panel; shared multi-condition graphs must retain condition-specific analytical provenance.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -445,7 +445,7 @@
     },
     {
       "id": "WF-041",
-      "requirement": "Figure 1 既定多条件规则单独保留：LSK 的 BM/Sp 同图、MP 的 BM/Sp 同图；F 的 0/GM-CSF、G 的 I/II/III、H 的 0/GM-CSF、I 的 0/0.16/0.20 各放对应同一图。该项目 F/G/H/I 为柱状图叠加个体点、均值与 SD，不能套用 Figure 2 的图号含义；0.20 不擅改成 0.22。",
+      "requirement": "Historical Figure 1 rules: combine BM/Sp for LSK and separately for MP; combine F: 0/GM-CSF, G: I/II/III, H: 0/GM-CSF and I: 0/0.16/0.20 within their respective graphs. F/G/H/I use bars with individual points, mean and SD. Do not transfer Figure 2 panel meanings or change 0.20 to 0.22.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -454,7 +454,7 @@
     },
     {
       "id": "WF-042",
-      "requirement": "统一命名 **Vav-Cre**。NA 的 tm、+/-、-/- 用 Prism 原生上标；按参考设置斜体，不用形似字符和过长斜杠凑外观。",
+      "requirement": "Use the historical canonical name Vav-Cre. Render NA tm, +/- and -/- with native Prism superscripts and reference italics, not lookalike characters or elongated slashes.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -463,7 +463,7 @@
     },
     {
       "id": "WF-043",
-      "requirement": "顺序：Vav-Cre → Atm → Nras → NAᵗᵐ → NA⁺/⁻（若有）→ NA⁻/⁻。NAᵗᵐ 固定在 Nras 后。不要凭颜色/列序号推断组身份。",
+      "requirement": "Historical order: Vav-Cre, Atm, Nras, NA-tm, NA+/- if present, NA-/-. Keep NA-tm immediately after Nras; do not infer identity from colors or column positions.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -472,7 +472,7 @@
     },
     {
       "id": "WF-044",
-      "requirement": "从 `Newest fig 1.prism` 实际读取命名颜色及数值映射。Vav-Cre 黑、Atm Orange、Nras 参考蓝、NAᵗᵐ Magenta、NA⁺/⁻ Green、NA⁻/⁻ Red；最终以参考文件精确值为准。不能用近似蓝、粉替代。",
+      "requirement": "Read named colors and numeric mappings from the actual reference Prism file. Historical mapping: Vav-Cre black, Atm Orange, Nras reference blue, NA-tm Magenta, NA+/- Green, NA-/- Red. Exact reference values govern; near matches are not acceptable.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -481,7 +481,7 @@
     },
     {
       "id": "WF-045",
-      "requirement": "Figure 2 的 NA⁻/⁻ CMML 红、AML 浅粉：同一组位置显示两种原生点和两个关联图例；按已确认统计方案合为 NA⁻/⁻ 分析组。图例分别写各亚组实际 n。",
+      "requirement": "Historical Figure 2 NA-/- CMML is red and AML pale pink. Show distinct native points and two linked legends at one group position; combine analytically only under the confirmed design. Give each subgroup its actual n.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -490,7 +490,7 @@
     },
     {
       "id": "WF-046",
-      "requirement": "真正设置 Symbols 的 Shape、Fill、Border color 与 Border thickness。所有彩色圆点与图例符号有统一黑边，Vav-Cre 黑色填充。禁止叠放大小圆/文本圆点伪造黑边，禁止出现错位月牙。",
+      "requirement": "Set actual Symbols Shape, Fill, Border color and Border thickness. Use consistent black borders on colored points/legend symbols and black-filled Vav-Cre points. Never stack circles or text glyphs to imitate borders or create offset crescents.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -499,7 +499,7 @@
     },
     {
       "id": "WF-047",
-      "requirement": "所有均值线、SD 误差线统一黑色、统一较粗线宽；使用原生图层顺序让误差线在点上方，检查实际导出效果。",
+      "requirement": "Use consistent thick black mean/SD lines. Place error bars above points using native layer settings and verify the exported appearance.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -508,7 +508,7 @@
     },
     {
       "id": "WF-048",
-      "requirement": "所有字体 Arial。坐标轴刻度文字与标题加粗；图例正文按参考；整个 `(n=数值)` 斜体、正常基线。检查所有面板，不能只修 E 或 C1a。",
+      "requirement": "Historical text uses Arial; axis titles and tick text are bold. Match reference legend text and italicize the entire (n=N) suffix on its normal baseline. Inspect every panel, not only the reported example.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -517,7 +517,7 @@
     },
     {
       "id": "WF-049",
-      "requirement": "用格式刷/原生格式复用统一字体、点、线、尺寸；逐组核验颜色。不能顺带覆盖不同指标的数值范围、图例、亚组设置或用户新画的显著性。",
+      "requirement": "Use format painting/native style reuse for fonts, points, lines and dimensions, then check each group's colors. Do not overwrite endpoint-specific ranges, legends, subgroups or new user annotations.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -526,7 +526,7 @@
     },
     {
       "id": "WF-050",
-      "requirement": "全部同类 C 图绘图区宽高和组中心间距一致，参考原图。历史目标约 2×2 英寸、组中心约 27 pt；这是本项目基准，最终按当前参考实测。不能只改第一张。",
+      "requirement": "Match plotting-area dimensions and group-center spacing across all comparable C panels. Historical targets were approximately 2 by 2 inches and 27 pt group spacing; remeasure the current reference rather than treating these as universal defaults.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -535,7 +535,7 @@
     },
     {
       "id": "WF-051",
-      "requirement": "去掉散点图横轴无意义小刻度与 XTitle 占位。范围容纳点、SD、显著性；不同指标不要强制相同数值范围。Figure 2 RBC 上限 15；D 上限 150%，图例完整可见。",
+      "requirement": "Remove meaningless scatter x ticks and XTitle placeholders. Include points, SD and significance in ranges without imposing identical numeric ranges across endpoints. Historical Figure 2 RBC maximum is 15 and D maximum is 150%, with the legend fully visible.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -544,7 +544,7 @@
     },
     {
       "id": "WF-052",
-      "requirement": "A/B/H 图例左端、符号列、文字列对齐，行距一致。每个图所有图例的 n、顺序、上下标逐项检查。",
+      "requirement": "Align A/B/H legend left edges, symbols and text, with equal line spacing. Check every legend's n, order and superscript/subscript formatting.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -553,7 +553,7 @@
     },
     {
       "id": "WF-053",
-      "requirement": "A 阈值线用与所有数据组不同的颜色，保留独立含义；本次采用紫色。不要与 NAᵗᵐ 的 Magenta 混淆。",
+      "requirement": "Give A's threshold line a distinct color not used by any data group. Historical purple must remain distinguishable from NA-tm Magenta.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -562,7 +562,7 @@
     },
     {
       "id": "WF-054",
-      "requirement": "只删除确认没有数据、图、布局、分析依赖的 Z-supporting；绘图辅助表、原始保留版和统计表不能因“看起来没用”被删除。",
+      "requirement": "Delete Z-supporting sheets only after confirming no data, graph, layout or analysis depends on them. Do not delete plotting helpers, preserved originals or statistics merely because they appear unused.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -571,7 +571,7 @@
     },
     {
       "id": "WF-055",
-      "requirement": "若绘图合并表与分析表是副本，建立同步校验；源数据改变后两边同步再重算。辅助数据不参与 n 和检验。",
+      "requirement": "When plotting and analytical tables are copies, verify synchronization. Update both and recalculate after source changes; helper observations never contribute to n or testing.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -580,7 +580,7 @@
     },
     {
       "id": "WF-056",
-      "requirement": "确认最终用户选择的 Prism 版本和面板；逐页导出矢量 PDF，再导入一个目标 AI 文档。不得重用早期缺星号或缺图例的导出文件。",
+      "requirement": "Confirm the user's final Prism version and panel selection, export each page as vector PDF and import into one target Illustrator document. Do not reuse earlier exports with missing annotations or legends.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -589,7 +589,7 @@
     },
     {
       "id": "WF-057",
-      "requirement": "保持每图等比例缩放；图的宽高变化优先在 Prism 调整，不能把方图压扁拉长。显微/流式图片保留原始内容与比例。",
+      "requirement": "Scale each panel proportionally; adjust plotting-area dimensions in Prism first instead of stretching square graphs. Preserve microscopy/flow-image content and aspect ratio.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -598,7 +598,7 @@
     },
     {
       "id": "WF-058",
-      "requirement": "每个面板、角标建立稳定对象名。识别真实 x/y 轴线及图片可见侧边/底边，不用含大块白边、图例或剪切蒙版的整体包围框冒充图像边界。",
+      "requirement": "Give panels and letters stable object names. Identify actual axes and visible image sides/bottoms; full PDF bounds containing whitespace, legends or clipping masks are not graph boundaries.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -607,7 +607,7 @@
     },
     {
       "id": "WF-059",
-      "requirement": "读取当前画板原点、坐标方向、网格单位、大格尺寸和细分。图轴对齐深色大格边线；不能把截图的屏幕像素直接当 pt，也不能凭“四个小格”口述猜测实际设置。",
+      "requirement": "Read artboard origin, coordinate direction, grid units, major-grid spacing and subdivisions. Align axes to the intended major grid; do not equate screen pixels with points or infer settings from informal grid descriptions.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -616,7 +616,7 @@
     },
     {
       "id": "WF-060",
-      "requirement": "同行 x 轴/图片底边共线；同列 y 轴/图片侧边共线。同行角标共线。角标到最高内容的间距允许细微不同，不能为逐图凑同一间距破坏同行轴线。",
+      "requirement": "Keep row baselines/image bottoms collinear, column y axes/image sides collinear, and row panel letters collinear. Slight letter-to-content distance differences are acceptable; do not break axis alignment to force equal distances.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -625,7 +625,7 @@
     },
     {
       "id": "WF-061",
-      "requirement": "排行时把星号、图例等可见内容计入最高点/最低点，检查相邻行实际留白。按用户优先级平衡行距、边距和铺满画布，不让顶/底内容拥挤或越界。",
+      "requirement": "Include stars and legends in visible panel extents when checking row whitespace. Balance row gaps, margins and artboard coverage according to user priorities without crowding or clipping.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -634,7 +634,7 @@
     },
     {
       "id": "WF-062",
-      "requirement": "图例距离从 x 轴右端到图例符号块左缘测量，水平、垂直分别设定。Figure 2 最新约定除 A 外水平半大格，并曾要求整块向下半大格；验收最终位置，不重复执行历史下移。",
+      "requirement": "Measure legend distance from the x-axis right endpoint to the legend symbol block's left edge, with separate horizontal/vertical targets. Historical Figure 2 uses half a major grid horizontally except A and once requested a half-grid downward move; verify final coordinates instead of repeating that move.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -643,7 +643,7 @@
     },
     {
       "id": "WF-063",
-      "requirement": "图例符号、正文、n、旁边比较线/星号作为完整块移动；仅修改目标面板对象。不能用“全画板 x 大于某值”筛选，否则可能把坐标轴刻度误当成图例移动。",
+      "requirement": "Move legend symbols, text, n and adjacent comparison brackets/stars as a complete block, limited to intended objects. Do not select every object beyond a global x threshold, which could capture axis ticks.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -652,7 +652,7 @@
     },
     {
       "id": "WF-064",
-      "requirement": "图例与左上角字母是不同对象；用户只让移动图例时保持轴和散点不动，用户只让改角标时保持图不动。",
+      "requirement": "Keep legends and panel letters separate. Moving a legend must preserve axes and points; changing a letter must preserve the graph unless instructed otherwise.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -661,7 +661,7 @@
     },
     {
       "id": "WF-065",
-      "requirement": "所有移动先列对象、原坐标、目标坐标和预期差值；保存备份后执行。优先绝对目标或从当前坐标计算差值，避免重跑再移动一次。",
+      "requirement": "List target objects, original coordinates, absolute targets and expected deltas before moving. Back up first and prefer absolute positions or deltas from current coordinates to prevent repeated shifts.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -670,7 +670,7 @@
     },
     {
       "id": "WF-066",
-      "requirement": "原始 E/F 位图保留，不伪称全图矢量。PDF 导入若出现文字转曲/字体替代，核实外观及编辑限制，不声称所有文字均可编辑。",
+      "requirement": "Preserve original E/F bitmaps and do not claim the entire figure is vector. Check appearance and editing limits when PDF import outlines text or substitutes fonts; do not claim all text remains editable.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -679,7 +679,7 @@
     },
     {
       "id": "WF-067",
-      "requirement": "先看整体四行，再逐图放大；验证边框、SD、字母、图例、星号、上下标、n、裁切和字体。机器测量与视觉检查两者都要做。",
+      "requirement": "Inspect the whole layout and zoom into each panel. Verify borders, SD, letters, legends, stars, scripts, n, clipping and fonts using both measurements and visual review.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -688,7 +688,7 @@
     },
     {
       "id": "WF-068",
-      "requirement": "通常只保持一个 Prism 工作项目；确需参考时再打开一个。不要一次打开大量 Prism 窗口，不反复替换工作文件。",
+      "requirement": "Normally keep one working Prism project open, adding one reference only when necessary. Do not open large numbers of windows or repeatedly replace working files.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -697,7 +697,7 @@
     },
     {
       "id": "WF-069",
-      "requirement": "不直接修改未记录的 `.prism` 二进制图形对象来拼凑星号/图例；曾导致缺对象、关联错误和应用异常。可读提取不等于可以安全写回。",
+      "requirement": "Do not mutate undocumented .prism binary graph objects to construct annotations/legends. Such edits can break objects, links and the app; readable extraction does not establish safe write-back.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -706,7 +706,7 @@
     },
     {
       "id": "WF-070",
-      "requirement": "统计模板不得残留演示数据。模拟数据必须独立标明，不能混入真实项目；示例 Welch 检验不作为实验默认检验。",
+      "requirement": "Remove demonstration data from actual statistical templates. Keep synthetic examples clearly separate from real projects; an example Welch test is not a default experimental method.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -715,7 +715,7 @@
     },
     {
       "id": "WF-071",
-      "requirement": "每批修改后刷新状态；失败先读取界面/日志/文件状态。相同失败没有新证据时不循环尝试；改用已验证的等价路径。",
+      "requirement": "Refresh state after each batch. Inspect UI/log/file evidence after failures; do not repeat the same failing action without new evidence. Use a verified equivalent path when appropriate.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -724,7 +724,7 @@
     },
     {
       "id": "WF-072",
-      "requirement": "不把 AX 超时、截图失败、文件对话框按钮禁用说成文件损坏。先保留证据和当前成果。重启前确认未保存内容；历史一次重启授权不能概括未来所有状态。",
+      "requirement": "Do not diagnose file corruption solely from accessibility timeouts, failed screenshots or disabled file-dialog buttons. Preserve work and evidence; confirm unsaved changes before restarting. Past restart approval does not cover every future state.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -733,7 +733,7 @@
     },
     {
       "id": "WF-073",
-      "requirement": "对象修改先预检数量、名称、范围；执行中失败需恢复本批或明确剩余状态。不要在部分变更后继续覆盖最终文件。",
+      "requirement": "Preflight object counts, names and bounds. If a batch fails, restore that batch or explicitly report remaining partial state; do not overwrite final files with unreviewed partial edits.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -742,7 +742,7 @@
     },
     {
       "id": "WF-074",
-      "requirement": "保持简单任务简单；不为小幅可逆排版另造测试程序。数据和统计变化需相应核查，视觉变更需渲染及坐标核验。",
+      "requirement": "Keep simple reversible layout tasks simple. Data/statistical changes need corresponding checks; visual changes need rendering and coordinate verification, not unnecessary test scaffolding.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -751,7 +751,7 @@
     },
     {
       "id": "WF-075",
-      "requirement": "用户纠正后，将规则更新到清单并检查全部同类面板；不要只修截图可见的一处。",
+      "requirement": "After a user correction, update the checklist rule and inspect every comparable panel, not just the visible screenshot example.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -760,7 +760,7 @@
     },
     {
       "id": "WF-076",
-      "requirement": "保存可编辑 `.prism`、按需保存 `.ai`，导出最终 PDF 与预览；报告中只链接真实存在的文件。",
+      "requirement": "Save editable .prism and, when required, .ai files; export final PDF and previews. Link only files that actually exist.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -769,7 +769,7 @@
     },
     {
       "id": "WF-077",
-      "requirement": "写独立简明统计/来源说明，包含实际方法、差异、待核实点、敏感性版本。不要把长报告塞在画面上。",
+      "requirement": "Provide a concise separate methods/provenance note describing methods, differences, uncertainties and sensitivity versions. Do not put a long report on the figure itself.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -778,7 +778,7 @@
     },
     {
       "id": "WF-078",
-      "requirement": "需要验证重新打开时，先确认已保存，受控验证一次；不要为了“验证”重复制造大量窗口。",
+      "requirement": "If reopening is necessary for verification, confirm the save and perform one controlled check rather than generating many windows.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -787,7 +787,7 @@
     },
     {
       "id": "WF-079",
-      "requirement": "最近一次排版之后重测位置，最近一次数据/统计变化之后重算结果。不能使用早于最后修改的报告宣称最终版通过。",
+      "requirement": "Remeasure after the latest layout change and recalculate after the latest data/statistical change. Earlier reports cannot verify later artifacts.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -796,7 +796,7 @@
     },
     {
       "id": "WF-080",
-      "requirement": "交付说明区分：本次实际修改、实际核验、未确认事项。可以说“列出的检查均通过”，不能说“任何可能的错误都已排除”。",
+      "requirement": "Distinguish actual changes, completed checks and unresolved issues in delivery. State that the listed checks passed, never that every possible error has been ruled out.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",
@@ -805,7 +805,7 @@
     },
     {
       "id": "WF-081",
-      "requirement": "不能验证的项目标为未验证，不能打勾。未完成的独立任务持续做，只有必要信息不足的部分保留待确认。",
+      "requirement": "Mark unverifiable checks unresolved rather than complete. Continue independent unfinished work; leave only information-dependent parts awaiting clarification.",
       "status": "unresolved",
       "reviewer": "",
       "reason": "",

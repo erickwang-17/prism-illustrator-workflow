@@ -1,36 +1,44 @@
 # Changelog
 
+**English** | [简体中文](CHANGELOG.zh-CN.md)
+
+## 0.4.1 — 2026-11-16
+
+- Add complete English and Simplified Chinese documentation with language links, including task/agent guidance and all 81 checklist requirements.
+- Preserve shared commands, schemas, rule IDs and statistical behavior; checklist evidence states remain unresolved in both languages.
+- Use an English automatic API troubleshooting prompt; manual questions may use either language.
+
 ## 0.4.0 — 2026-11-16
 
-- 新增可选 API 配置/本机检查/请求预览/一次调用命令；推荐用户先配置，离线功能保持可用。
-- 支持 Responses 和 Chat Completions 文本协议、可选服务地址与模型、两种 chat token 参数。
-- `analyze --ai-help` 失败时仅发送固定问题类别，建议与原错误分别记录，保持失败退出码。
-- 密钥仅取环境变量；限制输入/输出/响应大小和 I/O 超时，拒绝重定向，无自动重试。
-- 不执行模型输出；不悄悄改变数据或检验；AI 建议不能充当分析验收报告。
-- 增加离线 API 合同/异常/泄露防护测试；真实服务的凭据、模型权限与计费需配置后另行验证。
+- Add optional API setup, local checks, request previews and explicit single-call advice; recommend setup while preserving offline use.
+- Support Responses and Chat Completions text protocols, configurable endpoints/models and two chat token parameters.
+- `analyze --ai-help` sends only a fixed failure category; advice and original errors remain separate and failure exits are preserved.
+- Read keys only from environment variables; bound input/output/body sizes and I/O timeouts; reject redirects and automatic retries.
+- Never execute model output, silently modify data/tests or treat advice as acceptance.
+- Add offline contract/error/leak-protection tests; verify real credentials, model permissions and billing separately after configuration.
 
 ## 0.3.0 — 2026-11-16
 
-- 新增 inspect/analyze：CSV、TSV、XLSX 显式列映射与实验设计校验。
-- 新增 Welch、配对 t、普通 ANOVA、Kruskal、Pearson、Spearman 置换、Fisher 和描述性序列。
-- 显式指定组对使用 Welch + Holm；记录 n、支持的效应量/CI、缺失、警告与哈希。
-- 生成真正的代码 SVG/PDF/PNG；原始点、上层误差线、明确括线与文字边界检查。
-- 样式增加 generic/custom 配置；uwm 保持旧版默认，不影响新分析的通用样式。
-- 8 个无关领域的合成案例；增加独立数值基准、异常输入、来源不变与渲染测试。
-- 标准库审计保持独立；科学计算仅通过 [science] 安装。完整测试现在需要此 extra。
-- 不新增原生 Prism/Illustrator 自动写入，不保证任意数据或实验设计都可处理。
+- Add inspect/analyze for explicit CSV/TSV/XLSX mappings and designs.
+- Add Welch, paired t, ordinary ANOVA, Kruskal, Pearson, Spearman permutation, Fisher and descriptive series.
+- Explicit contrasts use Welch + Holm; record n, supported effects/CI, missingness, warnings and hashes.
+- Generate real SVG/PDF/PNG with raw points, error bars above points, explicit brackets and canvas text checks.
+- Add generic/custom profiles; uwm remains the legacy lint default without imposing its style on general analysis.
+- Add eight unrelated synthetic domains, independent numerical benchmarks and invalid-input/provenance/rendering checks.
+- Keep standard-library audits independent; full analysis/tests require `[science]`.
+- No native Prism/Illustrator automatic writing or universal data/design support.
 
 ## 0.2.0 — 2026-11-16
 
-- 增加 10 条编号格式规则、严格清单校验、rules / lint / summary 命令。
-- 增加 --version、安装入口、版本化 JSON 报告与可选 JSON 运行期错误。
-- 拒绝重复 JSON 键和含糊选项缩写。
-- 增加 agent skill、任务模板、规则和参考文档、可选 pre-commit hook。
-- 增加历史故障回归；CI 检查全部测试和安装后的命令。
-- 保留原有六个子命令；不改变统计模型或原生文件。
+- Add ten numbered format rules, strict manifests and rules/lint/summary commands.
+- Add version, installed CLI, versioned JSON reports and optional JSON runtime errors.
+- Reject duplicate JSON keys and ambiguous option abbreviations.
+- Add agent skill, task template, rules/references and optional pre-commit hook.
+- Add historical regression cases; CI tests all cases and installed commands.
+- Preserve the original six subcommands without changing statistical models/native files.
 
-兼容性：报告新增字段；重复 JSON 键和缩写选项从可能接受变为明确拒绝。旧报告没有 report_version，不能直接交给 summary；用原始输入重新运行，不手工伪造版本。
+Compatibility: reports gained fields; duplicate JSON keys and abbreviated options are now explicitly rejected. Old reports lacking report_version cannot enter summary. Rerun original inputs instead of fabricating a version field.
 
 ## 0.1.0 — 2026-11-16
 
-首次发布数据审计、显著性计划、布局核验、证据检查、导出脚本与 81 项工作流。
+Initial data audits, significance plans, layout checks, evidence verification, export scripts and 81-item workflow.

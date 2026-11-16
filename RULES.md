@@ -1,10 +1,12 @@
-# 图形清单检查协议 v1
+# Figure manifest validation contract v1
 
-`figureflow lint manifest.json` 检查从真实图形提取并核对的声明，不读取 Prism/AI 二进制、不识别图片、不计算 n、不改变原图。更新原生项目后，重新核对清单并与预览一起保存。
+**English** | [简体中文](RULES.zh-CN.md)
 
-`example_manifest.json` 的颜色、样本量、线宽均为模拟输入，不是正式参考值。未测量值不能用示例填充，null 不自动变成默认值。
+`figureflow lint manifest.json` checks declarations measured and verified against actual figures. It does not read Prism/AI binaries, recognize images, calculate n or modify figures. Recheck manifests after native edits and retain previews.
 
-## 命令
+The colors, counts and widths in `example_manifest.json` are synthetic, not official reference measurements. Never fill unknown measurements from examples; null does not imply a default.
+
+## Commands
 
 ```sh
 figureflow rules
@@ -14,58 +16,58 @@ figureflow lint example_manifest.json --select NAM001,LEG001 --error-format json
 figureflow summary local/data-report.json local/style-report.json --out local/summary.json
 ```
 
-先建立 local 目录。--out 只创建新文件。--select 使用完整且无重复的编号；报告包含 selected_rules、full_rule_set 和每条规则实际执行次数。0 次表示未适用，不是已检查。部分通过不等于全图通过。
+Create local first. `--out` only creates new files. `--select` requires complete, nonduplicate rule IDs. Reports include selected_rules, full_rule_set and execution counts; zero means not applicable, not checked. Partial success is not whole-figure acceptance.
 
-## 可选样式配置
+## Profiles
 
-为保持 v0.2 兼容，`lint` 默认 `--profile uwm`，下表描述这个历史项目配置。跨领域任务明确用 `--profile generic`：不强制 Vav-Cre、Arial、n 斜体、轴加粗或散点横轴无刻度，也不要求对象来自原生 Prism；仍检查字体统一、样本量、顺序、黑色圆边框、误差线、精确参考色和星号。
+For v0.2 compatibility, `lint` defaults to `--profile uwm`; the table below describes that historical profile. New domains should explicitly use `--profile generic`. It does not require Vav-Cre, Arial, italic n, bold axes, tickless scatter x axes or native Prism objects. It still checks consistent fonts, counts, order, black circular borders, error bars, exact reference colors and stars.
 
-`--profile generic-profile.json` 可加载完整自定义配置（见文件）。`font=null` 表示以首图实测字体为统一基准；`n_italic/axis_bold/scatter_x_ticks=null` 表示不规定该项；`canonical_names` 映射组 ID 到期望显示名。`require_native` 明确是否要求原生对象，星号大小与加粗可设置。未知或缺失字段报错，不接受任意可执行代码或用户正则。
+`--profile generic-profile.json` loads a complete custom profile. `font=null` uses the first measured panel as the font reference. Null n_italic/axis_bold/scatter_x_ticks imposes no policy for that property. canonical_names maps group IDs to display names; require_native controls native-object requirements; star size/boldness are configurable. Unknown/missing keys fail; executable code and user-supplied regex are not accepted.
 
-报告记录 profile 和完整 profile_settings。选择 generic 并非验证了科学合理性；此协议仍仅适用于有样本量图例的声明清单。
+Reports retain profile and profile_settings. The generic profile does not establish scientific validity; this contract still targets manifests with sample-count legends.
 
-## 规则
+## Rules
 
-| 编号 | 检查 | 纠正方式 |
+| ID | Check | Correction |
 |---|---|---|
-| NAM001 | group=Vav-Cre 的显示名称必须是 Vav-Cre | 修改原生图例，不改原始观察身份 |
-| LEG001 | 末尾恰有一个 `(n=N)`，匹配 audited_n | 先审计独立样本；CMML、AML 各自核对 |
-| LEG002 | n_italic 为 true | 将原生样本量后缀设斜体 |
-| LEG003 | 图例顺序遵循 reference.group_order | 对所有相关图调整图例，不误移数据 |
-| FMT001 | 图与图例字体 Arial | 修正字体并检查重新排版 |
-| FMT002 | 散点为原生圆、黑色边框、参考宽度 | 用 Symbols Border 设置，禁止叠加偏移圆 |
-| FMT003 | 误差线黑色、在数据点上层、参考宽度 | 核对每组原生设置 |
-| FMT004 | 轴文字加粗、无 XTitle、散点无横轴小刻度 | 按图类型设置；其他类型可保留刻度 |
-| STA001 | 星号 1–4 个或 ns，Arial 加粗 10 pt | 另保留统计结果，本规则不核对 P 值 |
-| COL001 | 每个 group 填充 RGB 精确等于参考值 | 提取数值，不能用相近色 |
+| NAM001 | group=Vav-Cre displays Vav-Cre | Edit native legend, not observation identity |
+| LEG001 | Exactly one trailing `(n=N)` matching audited_n | Audit independent samples; check CMML/AML separately |
+| LEG002 | n_italic=true | Italicize native count suffix |
+| LEG003 | Legend follows reference.group_order | Adjust all relevant legends without moving data |
+| FMT001 | Panel/legend font Arial | Correct fonts and recheck layout |
+| FMT002 | Native circles, black borders, reference width | Set Symbols Border; never stack offset circles |
+| FMT003 | Black error bars above points, reference width | Check every group's native settings |
+| FMT004 | Bold axes, no XTitle, no scatter x ticks | Respect plot type; other types may retain ticks |
+| STA001 | 1–4 stars or ns; Arial bold 10 pt | Retain statistical results separately; this rule does not verify P |
+| COL001 | Each group's RGB exactly matches reference | Extract numeric colors, not approximate matches |
 
-## 字段合同
+## Fields
 
-顶层仅允许 schema_version（整数 1）、reference、非空 panels。未知字段、重复 JSON 键、错误类型、缺失字段报输入错误。
+Only schema_version (integer 1), reference and nonempty panels are allowed at the root. Unknown/duplicate keys, wrong types and missing fields are input errors.
 
-- reference：group_order、相同 group 键的 palette（#RRGGBB）、正数 border_width_pt / error_width_pt。
-- panel：id、kind（scatter/line/survival/bar）、font、axis_bold、x_ticks、x_title、legends、stars、error_bars。图片走布局与视觉检查。
-- legend：group、label、正整数 audited_n、n_italic、font、symbol、native、border_color、正数 border_width_pt、fill。布尔值不能写成字符串。
-- star：text、font、bold、size_pt。没有标注时 stars=[]，不代表已验证标注无遗漏。
-- error_bars：color、layer、width_pt。非散点且无误差线可为 null；当前散点协议要求提供测量设置。
+- reference: group_order, palette with the same group keys (#RRGGBB), positive border_width_pt/error_width_pt.
+- panel: id, kind (scatter/line/survival/bar), font, axis_bold, x_ticks, x_title, legends, stars, error_bars. Images use layout/visual review.
+- legend: group, label, positive integer audited_n, n_italic, font, symbol, native, border_color, positive border_width_pt, fill. Booleans must not be strings.
+- star: text, font, bold, size_pt. stars=[] means no annotation, not proof that none was omitted.
+- error_bars: color, layer, width_pt. Null is allowed for non-scatter panels without error bars; scatter manifests require measured settings.
 
-group 是机器 ID，显示文字可以使用 Unicode。NA_KO_CMML / NA_KO_AML 可用于同一横轴组的不同图例。本协议不检查其真实横轴位置是否合并。所有样式声明均需与原生对象核对。
+Group is a machine ID; display text can be Unicode. NA_KO_CMML/NA_KO_AML may describe different legends at one x position, but lint does not verify their actual shared position. Compare every declaration against native objects.
 
-## 正则与边界
+## Regex boundaries
 
-| 目的 | Python 正则 | 边界 |
+| Purpose | Python regex | Boundary |
 |---|---|---|
-| n 后缀 | `\(n=([1-9][0-9]*)\)\Z` | ASCII 正整数；拒绝 n=0、缺失、尾部换行；再比较 audited_n |
-| RGB | `#[0-9A-Fa-f]{6}\Z` | 精确 RGB；大小写等价 |
-| ID | `[A-Za-z0-9][A-Za-z0-9_-]{0,63}\Z` | 长度上限 64；不含路径分隔符 |
-| 星号 | `(?:\*{1,4}|ns)\Z` | 拒绝 5 个星号和尾部文字 |
+| Count suffix | `\(n=([1-9][0-9]*)\)\Z` | Positive ASCII integer; rejects zero, missing suffix and trailing newline; compared with audited_n |
+| RGB | `#[0-9A-Fa-f]{6}\Z` | Exact RGB, case-insensitive hex |
+| ID | `[A-Za-z0-9][A-Za-z0-9_-]{0,63}\Z` | At most 64 characters; no path separators |
+| Stars | `(?:\*{1,4}|ns)\Z` | Rejects five stars and trailing text |
 
-只运行固定、有限制模式，不接受用户提供的正则或全局改写科研文本。群组语义、斜体、边框、图层不能通过正则推断。
+Only fixed bounded patterns run; no supplied regex or global scientific-text rewrites. Regex cannot infer group semantics, italics, borders or layering.
 
-## 报告和退出码
+## Reports and exits
 
-报告含 report_version=1、tool_version、command 和输入哈希。lint 诊断含 code、severity、JSON path、message、fixable=false。0=当前范围通过，1=发现问题，2=输入/文件错误。
+Reports include report_version=1, tool_version, command and input hashes. Lint diagnostics include code, severity, JSON path, message and fixable=false. Exit 0 = scoped pass; 1 = issues; 2 = input/file error.
 
---error-format json 将运行期输入/文件错误放在 stderr，stdout 保持为空；命令行用法错误仍为 argparse 文本。消费者应允许新增字段、拒绝未知 report_version。
+`--error-format json` puts runtime input/file errors on stderr with empty stdout; argparse usage errors remain text. Consumers should allow new fields but reject unknown report_version.
 
-summary 只接受版本 1 的 audit/plan/layout/verify/lint/analyze 报告，保留状态、版本、范围及报告哈希。任一 fail 则汇总 fail；不重跑、不验证输入仍新鲜、不证明范围完整。最终仍需 verify 与视觉验收。
+`summary` accepts only version-1 audit/plan/layout/verify/lint/analyze reports, retaining status, version, scope and report hashes. Any fail makes the summary fail. It does not rerun checks, verify freshness or establish complete scope. Final acceptance still requires verify and visual review.

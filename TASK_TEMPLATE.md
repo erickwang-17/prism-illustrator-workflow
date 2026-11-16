@@ -1,5 +1,7 @@
 # Figure task record
 
+**English** | [简体中文](TASK_TEMPLATE.zh-CN.md)
+
 Copy this file into an ignored local task directory. Populate it from actual files and current instructions. Blank fields mean unresolved, not permission to infer data.
 
 ## Scope and current decisions

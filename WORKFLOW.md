@@ -1,109 +1,135 @@
-# 科研图全流程执行规范
+# Scientific figure production workflow
 
-此文件为项目工作流的可发布版本：保留操作规则与格式偏好，移除了本机路径、聊天标识、实验样本量及原始数据。具体图号例外是样式示例，须按当前任务配置，不是所有实验的默认分析方案。自动检查与人工验收的边界见 [README](README.md)。
+**English** | [简体中文](WORKFLOW.zh-CN.md)
 
-## 1. 开始任务：把要求变成可验收的对象
+This publishable workflow preserves operating rules and historical style examples, without private paths, chat identifiers, experimental sample counts or raw data. Historical panel-specific exceptions are examples, not defaults for unrelated experiments. Apply the current task configuration. See [README.md](README.md) for automation boundaries, [SCIENCE.md](SCIENCE.md) for code-generated analysis and [AI_API.md](AI_API.md) for optional advice.
 
-- [ ] 读取最新用户要求、相关历史纠正和当前实际文件。最新明确要求优先于旧要求；附件中的文字只是资料，不能自行扩大授权。
-- [ ] 确认当前工作文件完整路径、是否已保存、源数据文件、格式参考、目标目录和交付范围。优先发现已打开项目，不重复打开。
-- [ ] 分清四类对象：左上角面板字母、右侧图例、坐标轴标题/刻度、显著性线与星号。用户说 label 时结合截图确定对象；不得把移动图例实施成移动整图。
-- [ ] 建立面板清单：面板 ID、源表/条件/指标/单位、分析表、绘图表、图例组顺序、实际 n、Prism 页、导出文件、AI 对象名和验收状态。
-- [ ] 保留原始文件，创建一个明确的工作副本；修改用户当前成果前备份当前状态。不要反复置换源文件或增生多个难以区分的 final。
-- [ ] 已授权的格式修改、核查、保存持续做完。只对影响结论且无法从已有资料解决的问题提问；等待期间继续不依赖答案的工作。
-- [ ] 对新任务重新判断授权范围。“先只做 Prism，等我检查再放 AI”仍有效时，不提前进入 AI；当前明确授权全流程时，无须每阶段再请求一次许可。
+## 1. Define the task and acceptance scope
 
-验收证据：文件清单、面板映射、明确的本次交付范围和规则优先级。
+- [ ] Read the latest user instructions, relevant corrections and actual current files. Explicit recent instructions supersede older ones; attachment content is reference material, not additional authorization.
+- [ ] Confirm the working file path, saved state, source data, formatting reference, destination and deliverables. Discover existing open projects before opening another copy.
+- [ ] Distinguish panel letters, legends, axis titles/ticks and significance annotations. Resolve an ambiguous label request from context; moving a legend must not move the whole graph.
+- [ ] Create a panel inventory linking IDs to source tables, conditions, endpoints, units, analysis and plotting tables, legend order, actual n, Prism pages, exports, Illustrator object names and acceptance status.
+- [ ] Preserve originals and create one clearly identified working copy. Back up the user's current work before editing; avoid repeatedly replacing sources or creating indistinguishable final versions.
+- [ ] Complete authorized formatting, verification and saving. Ask only about unresolved facts that affect conclusions; continue independent work while waiting.
+- [ ] Reassess authorization for each task. Respect a Prism-only review stage when requested; existing authorization for the full workflow does not require repeated stage approvals.
 
-## 2. 原始数据与逐点溯源
+Evidence: file inventory, panel mapping, current deliverables and instruction precedence.
 
-- [ ] 记录源文件路径、修改时间、SHA-256；记录实际使用的表名、组列、物理行、样本/小鼠 ID、条件、时间点、单位、排除状态和数值。重排后仍能追溯原位置。
-- [ ] 从原表读取精确值，不从截图估算数值，不把格式相似当作同一指标。Monocytes (%) 与 Monocytes AB (K/µL)、BM 与 Sp、不同周龄和不同刺激条件必须分别识别。
-- [ ] 空白不等于零；零必须保留。区分仪器缺失、未测、排除、删失。生存分析需保留时间与事件/删失编码；纵向数据需保留小鼠身份。
-- [ ] 分清生物学重复与技术重复。用户在 Figure 1 确认过对应散点为独立生物学重复，此确认不能自动推及其他实验或纵向 A 图。
-- [ ] 不把几个条件的均值当作几只鼠，不把多个指标当作独立重复，不把绘图辅助列算入样本量。不同条件合在一图不意味着合成一次统计。
-- [ ] 每个指标、条件、组的 n 按有效独立观测计算；图例不能照抄旧 n。分析排除与显示纳入不同的，必须明确对应关系。
-- [ ] 按组、条件和身份逐项比较原始值与分析值、绘图值；核对单位、数值精度、缺失位置、行顺序及重复关系。不能只比较均值或总数。
-- [ ] 相同数值不证明重复样本；跨组相同数值不自动删除。发现可疑复制时报告具体源行和值，保留原始版；仅按明确指示制作有排除清单的敏感性版本。
-- [ ] 百分比不能直接作为列联表人数。先找图例/原始表中的实际总 n，检查百分比精度，再还原整数只数；四舍五入百分比不能唯一反推时继续查原始记录。
-- [ ] 派生值若需核对，先核实同鼠、同时间与单位，再比较公式结果。若源文件存在已确认配对下的公式不一致，应按用户要求保留源值、单列问题，不能自行覆盖。
-- [ ] 组名仅按已确认定义规范化。Atm 等项目缩写不能因常见拼写擅自展开为另一基因或实验含义。
+## 2. Preserve source data and observation-level provenance
 
-验收证据：逐点来源表、各组 n、差异清单、排除清单、工作数据与源数据的比较结果。没有差异时写清“对哪些文件、哪些表、哪些值核对无差异”，不能扩大为整个实验真实无误。
+- [ ] Record source paths, modification times and SHA-256 hashes, plus table, group column, physical row, sample/animal ID, condition, time, unit, exclusion status and value. Preserve traceability after reordering.
+- [ ] Read exact values from source tables, never estimate from screenshots. Distinguish percentages from absolute counts, BM from Sp, ages and stimulation conditions even when formats look similar.
+- [ ] Blank is not zero; retain actual zeros. Distinguish missing, unmeasured, excluded and censored observations. Preserve time/event coding for survival data and animal IDs for longitudinal data.
+- [ ] Distinguish biological from technical replicates. A prior confirmation of independent biological replicates for Figure 1 does not establish independence for another experiment or longitudinal panel A.
+- [ ] Do not treat condition means as animals, endpoints as independent replicates or plotting-helper columns as samples. Combining conditions visually does not combine their statistical analyses.
+- [ ] Calculate n separately for each endpoint, condition and group from valid independent observations; never copy an old legend count. Explain any difference between analytical exclusions and displayed observations.
+- [ ] Compare original, analyzed and plotted values by group, condition and identity, including units, precision, missing positions, ordering and duplicate relationships. Comparing means or totals alone is insufficient.
+- [ ] Equal values do not prove duplicate samples and must not be deleted automatically. Report suspicious copied rows/values, preserve the original, and create a documented sensitivity version only under explicit instructions.
+- [ ] Do not use percentages as contingency counts. Find actual totals in legends or source tables, inspect rounding and reconstruct integers only when justified; otherwise consult original records.
+- [ ] Before checking derived values, confirm sample pairing, time and units. Preserve source values and report confirmed formula discrepancies separately when instructed; never overwrite them silently.
+- [ ] Normalize group names only against confirmed definitions. Do not expand project abbreviations such as Atm into another gene or experimental meaning based on familiar spelling.
 
-## 3. 统计：分别核对数据一致、方法复现、设计适用
+Evidence: observation provenance, per-group n, discrepancies, exclusions and explicit source/candidate comparisons. State exactly which files, tables and values were checked.
 
-- [ ] 查看原 Prism 的分析类型及完整参数，不从旧星号反推方法。记录配对/重复测量、因素、交互作用、误差模型、缺失处理、检验方向、alpha、多重比较方法及比较集合。
-- [ ] 先确定实验单位、是否同鼠随访、是否配对/嵌套/独立、终点类型及主要问题，再确定新分析。需要的设计信息缺失时，保留条件性结论，不凭直觉定案。
-- [ ] 若任务是复现老师分析，先完整复现并对照结果；若原设置不合适，单独说明原因及备选方案，不静默替换后宣称“方法完全一样”。
-- [ ] 主要比较 Vav-Cre 与其他组；其次检查 NAᵗᵐ 与其他组。其他有科学理由的比较单列为计划比较或探索比较，不因看见显著就临时挑选。
-- [ ] 明确多重比较的 family：实际测试哪些组对、是否分条件、是否跨终点。不能为增加星号随意缩小 family。Holm、Holm–Šídák、Tukey 不是同一种校正。
-- [ ] 连续变量区分 SD 与 SEM，按本项目参考显示均值 ± SD。结果保留精确 P、校正 P、统计量、自由度及可用的效应量/区间，不只输出星号。
-- [ ] 生存曲线保留事件/删失定义；整体 log-rank 与新增两两 log-rank 分别记录。不能用整体显著性冒充每对显著性。
-- [ ] A 的问题是组间比较，不是把星号画在不同周之间；但“比较组”不解决是否重复测量的问题。原方法复现与纵向模型有效性分别说明。
-- [ ] E/F 这类代表性图片没有独立定量数据时，不凭像素或视觉差异制造样本量和统计结果。
-- [ ] 用相同输入和参数做必要的独立复算；数值容差依据软件精度确定并报告。先匹配组名和对比方向，不只匹配结果行号。
-- [ ] 发现方差不齐、模型不适用、身份不明等，明确限制。不得因为 P 值与老师一致就声称假设全部成立。
+## 3. Separate data fidelity, method reproduction and design validity
 
-验收证据：分析参数表、比较集合、精确与校正 P 表、复算差异、设计限制。报告必须分开回答：数据是否一致？原方法是否复现？该方法是否已确认适用？
+- [ ] Inspect the original Prism analysis and all parameters rather than inferring methods from stars. Record pairing/repeated measures, factors, interactions, error model, missingness, test direction, alpha, correction and comparison set.
+- [ ] Establish the experimental unit, follow-up structure, pairing/nesting/independence, endpoint type and primary question before choosing a new analysis. Missing design facts require conditional conclusions, not guesses.
+- [ ] When reproducing an existing analysis, reproduce its parameters and compare results first. Explain unsuitable original settings and alternatives separately; do not silently substitute a method and claim exact reproduction.
+- [ ] For the historical project, prioritize Vav-Cre versus other groups, then NA-tm versus others. Record additional scientifically justified contrasts as planned or exploratory; never select them merely because they look significant.
+- [ ] Define each multiple-comparison family: tested pairs, conditions and endpoints. Do not shrink the family to increase stars. Holm, Holm-Sidak and Tukey are different procedures.
+- [ ] Distinguish SD from SEM; the historical reference displays mean plus/minus SD. Retain exact and adjusted P, statistics, degrees of freedom and available effect sizes/intervals, not only stars.
+- [ ] Preserve survival event/censoring definitions. Record overall and pairwise log-rank tests separately; an overall result is not a result for every pair.
+- [ ] Historical panel A compares groups, not weeks. A group comparison still requires resolving repeated-measures structure; report reproduction and longitudinal-model validity separately.
+- [ ] Do not invent sample sizes or statistical results from representative images such as E/F without independent quantitative data.
+- [ ] Independently recompute results where needed with identical inputs and parameters. Report precision-based tolerances and align groups/contrast directions rather than just row numbers.
+- [ ] State limitations such as unequal variances, unsuitable models or uncertain identities. Matching a reference P value does not prove the assumptions are valid.
 
-## 4. 显著性画法：来自结果表，格式统一
+Evidence: parameters, comparison families, exact/adjusted P, independent checks and limitations. Answer the three questions separately.
 
-- [ ] 每条线绑定明确的参照组、目标组、条件和结果表行。先生成画线计划，再画。
-- [ ] 首先处理 Vav-Cre 对其他组；再报告 NAᵗᵐ 的显著比较；必要补充有依据的重点比较。
-- [ ] 对同一参照、同一条件、同一统计方案的连续显著目标组，可用分支/覆盖线合并。不能跨过不显著或不属于该比较的中间组，不能让读者误以为目标组彼此在比较。
-- [ ] 合并后取最少星号。例如 ** 与 **** 合并标 **；等价于用覆盖比较中最大的校正 P 决定共同等级。不是取最小 P，也不是把目标组数据混起来重做检验。
-- [ ] 本项目既定阈值：* P≤0.05，** P≤0.01，*** P≤0.001，**** P≤0.0001；使用未四舍五入的校正 P，并核对软件边界设置。
-- [ ] 所有面板星号统一 Arial、粗体、10 pt；线条黑色，粗细、端帽、星号到线的距离统一。安排层级避免压住点、误差线、图例、文字或被导出裁切。
-- [ ] 生存图按实际组比较，在图例侧用清楚的括线对应组名；不要画成时间点之间的比较。
-- [ ] 手工线条必须保留比较映射。数据或分析变化后，所有对应手工标注重新生成/核验，不能让旧星号遗留。
-- [ ] 用户手绘的新标注视为最新展示版本，先核对再改；发现与结果不符，指出具体组对和 P 值，不能无说明覆盖。
-- [ ] 统计显著性不等于相关性、因果关系或生物学重要性。文字描述用“组间差异/生存差异”等与检验一致的语言。
+## 4. Map significance annotations to verified results
 
-验收证据：逐条括线的参照—目标—P—星号对应表；放大预览中线、星、数据均可辨识。
+- [ ] Bind every significance line to a reference group, target, condition and result row. Produce an annotation plan before drawing.
+- [ ] For the historical project, handle Vav-Cre contrasts first, report significant NA-tm contrasts next, and add other justified priority contrasts where appropriate.
+- [ ] Adjacent significant targets sharing a reference, condition and statistical scheme may share a branching/spanning annotation. Do not bridge nonsignificant or unrelated intervening groups or imply comparisons among targets.
+- [ ] A merged annotation uses the fewest stars: combining ** and **** gives **. This corresponds to the largest adjusted P among covered contrasts, not the smallest P or a new pooled-data test.
+- [ ] Historical thresholds are * P<=0.05, ** P<=0.01, *** P<=0.001 and **** P<=0.0001. Use unrounded adjusted P and verify the software's boundary conventions.
+- [ ] Use Arial bold 10 pt stars across historical panels, with consistent black line widths, caps and star-to-line spacing. Keep annotations clear of points, error bars, legends and text, and inside export bounds.
+- [ ] For survival plots, place clear brackets beside the legend for actual group contrasts; do not depict comparisons between time points.
+- [ ] Keep mappings for manual annotations. Regenerate or verify every affected annotation after data or analysis changes so obsolete stars cannot remain.
+- [ ] Treat newly hand-drawn user annotations as the latest presentation version and check them before editing. Identify specific group/P discrepancies instead of silently replacing them.
+- [ ] Statistical significance does not establish correlation, causation or biological importance. Describe differences using language consistent with the test.
 
-## 5. Prism 原生绘图与格式
+Evidence: each bracket has a reference, target, condition, P and star mapping; all elements remain legible at inspection scale.
 
-- [ ] 从真实数据生成可编辑 Prism 图；数据、结果和图在同一项目中按面板组织，重命名清楚。需要的多条件放同图，保留按条件的分析来源。
-- [ ] Figure 1 既定多条件规则单独保留：LSK 的 BM/Sp 同图、MP 的 BM/Sp 同图；F 的 0/GM-CSF、G 的 I/II/III、H 的 0/GM-CSF、I 的 0/0.16/0.20 各放对应同一图。该项目 F/G/H/I 为柱状图叠加个体点、均值与 SD，不能套用 Figure 2 的图号含义；0.20 不擅改成 0.22。
-- [ ] 统一命名 **Vav-Cre**。NA 的 tm、+/-、-/- 用 Prism 原生上标；按参考设置斜体，不用形似字符和过长斜杠凑外观。
-- [ ] 顺序：Vav-Cre → Atm → Nras → NAᵗᵐ → NA⁺/⁻（若有）→ NA⁻/⁻。NAᵗᵐ 固定在 Nras 后。不要凭颜色/列序号推断组身份。
-- [ ] 从 `Newest fig 1.prism` 实际读取命名颜色及数值映射。Vav-Cre 黑、Atm Orange、Nras 参考蓝、NAᵗᵐ Magenta、NA⁺/⁻ Green、NA⁻/⁻ Red；最终以参考文件精确值为准。不能用近似蓝、粉替代。
-- [ ] Figure 2 的 NA⁻/⁻ CMML 红、AML 浅粉：同一组位置显示两种原生点和两个关联图例；按已确认统计方案合为 NA⁻/⁻ 分析组。图例分别写各亚组实际 n。
-- [ ] 真正设置 Symbols 的 Shape、Fill、Border color 与 Border thickness。所有彩色圆点与图例符号有统一黑边，Vav-Cre 黑色填充。禁止叠放大小圆/文本圆点伪造黑边，禁止出现错位月牙。
-- [ ] 所有均值线、SD 误差线统一黑色、统一较粗线宽；使用原生图层顺序让误差线在点上方，检查实际导出效果。
-- [ ] 所有字体 Arial。坐标轴刻度文字与标题加粗；图例正文按参考；整个 `(n=数值)` 斜体、正常基线。检查所有面板，不能只修 E 或 C1a。
-- [ ] 用格式刷/原生格式复用统一字体、点、线、尺寸；逐组核验颜色。不能顺带覆盖不同指标的数值范围、图例、亚组设置或用户新画的显著性。
-- [ ] 全部同类 C 图绘图区宽高和组中心间距一致，参考原图。历史目标约 2×2 英寸、组中心约 27 pt；这是本项目基准，最终按当前参考实测。不能只改第一张。
-- [ ] 去掉散点图横轴无意义小刻度与 XTitle 占位。范围容纳点、SD、显著性；不同指标不要强制相同数值范围。Figure 2 RBC 上限 15；D 上限 150%，图例完整可见。
-- [ ] A/B/H 图例左端、符号列、文字列对齐，行距一致。每个图所有图例的 n、顺序、上下标逐项检查。
-- [ ] A 阈值线用与所有数据组不同的颜色，保留独立含义；本次采用紫色。不要与 NAᵗᵐ 的 Magenta 混淆。
-- [ ] 只删除确认没有数据、图、布局、分析依赖的 Z-supporting；绘图辅助表、原始保留版和统计表不能因“看起来没用”被删除。
-- [ ] 若绘图合并表与分析表是副本，建立同步校验；源数据改变后两边同步再重算。辅助数据不参与 n 和检验。
+## 5. Native Prism graphs and formatting
 
-验收证据：每个面板导出预览、原生对象设置、表—分析—图依赖关系、逐面板格式检查。不能把程序重画的外观或 AI 修改冒充 Prism 中已经改好。
+- [ ] Generate editable native Prism graphs from actual data. Organize and name data, results and graphs by panel; shared multi-condition graphs must retain condition-specific analytical provenance.
+- [ ] Historical Figure 1 rules: combine BM/Sp for LSK and separately for MP; combine F: 0/GM-CSF, G: I/II/III, H: 0/GM-CSF and I: 0/0.16/0.20 within their respective graphs. F/G/H/I use bars with individual points, mean and SD. Do not transfer Figure 2 panel meanings or change 0.20 to 0.22.
+- [ ] Use the historical canonical name Vav-Cre. Render NA tm, +/- and -/- with native Prism superscripts and reference italics, not lookalike characters or elongated slashes.
+- [ ] Historical order: Vav-Cre, Atm, Nras, NA-tm, NA+/- if present, NA-/-. Keep NA-tm immediately after Nras; do not infer identity from colors or column positions.
+- [ ] Read named colors and numeric mappings from the actual reference Prism file. Historical mapping: Vav-Cre black, Atm Orange, Nras reference blue, NA-tm Magenta, NA+/- Green, NA-/- Red. Exact reference values govern; near matches are not acceptable.
+- [ ] Historical Figure 2 NA-/- CMML is red and AML pale pink. Show distinct native points and two linked legends at one group position; combine analytically only under the confirmed design. Give each subgroup its actual n.
+- [ ] Set actual Symbols Shape, Fill, Border color and Border thickness. Use consistent black borders on colored points/legend symbols and black-filled Vav-Cre points. Never stack circles or text glyphs to imitate borders or create offset crescents.
+- [ ] Use consistent thick black mean/SD lines. Place error bars above points using native layer settings and verify the exported appearance.
+- [ ] Historical text uses Arial; axis titles and tick text are bold. Match reference legend text and italicize the entire (n=N) suffix on its normal baseline. Inspect every panel, not only the reported example.
+- [ ] Use format painting/native style reuse for fonts, points, lines and dimensions, then check each group's colors. Do not overwrite endpoint-specific ranges, legends, subgroups or new user annotations.
+- [ ] Match plotting-area dimensions and group-center spacing across all comparable C panels. Historical targets were approximately 2 by 2 inches and 27 pt group spacing; remeasure the current reference rather than treating these as universal defaults.
+- [ ] Remove meaningless scatter x ticks and XTitle placeholders. Include points, SD and significance in ranges without imposing identical numeric ranges across endpoints. Historical Figure 2 RBC maximum is 15 and D maximum is 150%, with the legend fully visible.
+- [ ] Align A/B/H legend left edges, symbols and text, with equal line spacing. Check every legend's n, order and superscript/subscript formatting.
+- [ ] Give A's threshold line a distinct color not used by any data group. Historical purple must remain distinguishable from NA-tm Magenta.
+- [ ] Delete Z-supporting sheets only after confirming no data, graph, layout or analysis depends on them. Do not delete plotting helpers, preserved originals or statistics merely because they appear unused.
+- [ ] When plotting and analytical tables are copies, verify synchronization. Update both and recalculate after source changes; helper observations never contribute to n or testing.
 
-## 6. Illustrator 排版
+Evidence: per-panel exports, native settings, table-analysis-graph links and a complete formatting review. Code-generated or Illustrator-edited appearances do not prove native Prism changes.
 
-- [ ] 确认最终用户选择的 Prism 版本和面板；逐页导出矢量 PDF，再导入一个目标 AI 文档。不得重用早期缺星号或缺图例的导出文件。
-- [ ] 保持每图等比例缩放；图的宽高变化优先在 Prism 调整，不能把方图压扁拉长。显微/流式图片保留原始内容与比例。
-- [ ] 每个面板、角标建立稳定对象名。识别真实 x/y 轴线及图片可见侧边/底边，不用含大块白边、图例或剪切蒙版的整体包围框冒充图像边界。
-- [ ] 读取当前画板原点、坐标方向、网格单位、大格尺寸和细分。图轴对齐深色大格边线；不能把截图的屏幕像素直接当 pt，也不能凭“四个小格”口述猜测实际设置。
-- [ ] 同行 x 轴/图片底边共线；同列 y 轴/图片侧边共线。同行角标共线。角标到最高内容的间距允许细微不同，不能为逐图凑同一间距破坏同行轴线。
-- [ ] 排行时把星号、图例等可见内容计入最高点/最低点，检查相邻行实际留白。按用户优先级平衡行距、边距和铺满画布，不让顶/底内容拥挤或越界。
-- [ ] 图例距离从 x 轴右端到图例符号块左缘测量，水平、垂直分别设定。Figure 2 最新约定除 A 外水平半大格，并曾要求整块向下半大格；验收最终位置，不重复执行历史下移。
-- [ ] 图例符号、正文、n、旁边比较线/星号作为完整块移动；仅修改目标面板对象。不能用“全画板 x 大于某值”筛选，否则可能把坐标轴刻度误当成图例移动。
-- [ ] 图例与左上角字母是不同对象；用户只让移动图例时保持轴和散点不动，用户只让改角标时保持图不动。
-- [ ] 所有移动先列对象、原坐标、目标坐标和预期差值；保存备份后执行。优先绝对目标或从当前坐标计算差值，避免重跑再移动一次。
-- [ ] 原始 E/F 位图保留，不伪称全图矢量。PDF 导入若出现文字转曲/字体替代，核实外观及编辑限制，不声称所有文字均可编辑。
-- [ ] 先看整体四行，再逐图放大；验证边框、SD、字母、图例、星号、上下标、n、裁切和字体。机器测量与视觉检查两者都要做。
+## 6. Illustrator layout
 
-验收证据：最终坐标/间距表、最终 AI 导出的整体与局部预览、缺图/缺字/裁切检查。
+- [ ] Confirm the user's final Prism version and panel selection, export each page as vector PDF and import into one target Illustrator document. Do not reuse earlier exports with missing annotations or legends.
+- [ ] Scale each panel proportionally; adjust plotting-area dimensions in Prism first instead of stretching square graphs. Preserve microscopy/flow-image content and aspect ratio.
+- [ ] Give panels and letters stable object names. Identify actual axes and visible image sides/bottoms; full PDF bounds containing whitespace, legends or clipping masks are not graph boundaries.
+- [ ] Read artboard origin, coordinate direction, grid units, major-grid spacing and subdivisions. Align axes to the intended major grid; do not equate screen pixels with points or infer settings from informal grid descriptions.
+- [ ] Keep row baselines/image bottoms collinear, column y axes/image sides collinear, and row panel letters collinear. Slight letter-to-content distance differences are acceptable; do not break axis alignment to force equal distances.
+- [ ] Include stars and legends in visible panel extents when checking row whitespace. Balance row gaps, margins and artboard coverage according to user priorities without crowding or clipping.
+- [ ] Measure legend distance from the x-axis right endpoint to the legend symbol block's left edge, with separate horizontal/vertical targets. Historical Figure 2 uses half a major grid horizontally except A and once requested a half-grid downward move; verify final coordinates instead of repeating that move.
+- [ ] Move legend symbols, text, n and adjacent comparison brackets/stars as a complete block, limited to intended objects. Do not select every object beyond a global x threshold, which could capture axis ticks.
+- [ ] Keep legends and panel letters separate. Moving a legend must preserve axes and points; changing a letter must preserve the graph unless instructed otherwise.
+- [ ] List target objects, original coordinates, absolute targets and expected deltas before moving. Back up first and prefer absolute positions or deltas from current coordinates to prevent repeated shifts.
+- [ ] Preserve original E/F bitmaps and do not claim the entire figure is vector. Check appearance and editing limits when PDF import outlines text or substitutes fonts; do not claim all text remains editable.
+- [ ] Inspect the whole layout and zoom into each panel. Verify borders, SD, letters, legends, stars, scripts, n, clipping and fonts using both measurements and visual review.
 
-## 7. 工具路径、脚本和恢复
+Evidence: final coordinate/gap measurements, full-layout and enlarged final previews, and checks for missing content or clipping.
 
-优先调用当前可用的原生接口及已经验证的脚本；GUI 用于未支持的原生设置和核验。读取当前工具文档，不照抄旧聊天的失效 UI ID 或旧 CUA API。
+## 7. Tool execution and recovery
 
-本机曾验证的封装入口：
+- [ ] Normally keep one working Prism project open, adding one reference only when necessary. Do not open large numbers of windows or repeatedly replace working files.
+- [ ] Do not mutate undocumented .prism binary graph objects to construct annotations/legends. Such edits can break objects, links and the app; readable extraction does not establish safe write-back.
+- [ ] Remove demonstration data from actual statistical templates. Keep synthetic examples clearly separate from real projects; an example Welch test is not a default experimental method.
+- [ ] Refresh state after each batch. Inspect UI/log/file evidence after failures; do not repeat the same failing action without new evidence. Use a verified equivalent path when appropriate.
+- [ ] Do not diagnose file corruption solely from accessibility timeouts, failed screenshots or disabled file-dialog buttons. Preserve work and evidence; confirm unsaved changes before restarting. Past restart approval does not cover every future state.
+- [ ] Preflight object counts, names and bounds. If a batch fails, restore that batch or explicitly report remaining partial state; do not overwrite final files with unreviewed partial edits.
+- [ ] Keep simple reversible layout tasks simple. Data/statistical changes need corresponding checks; visual changes need rendering and coordinate verification, not unnecessary test scaffolding.
+- [ ] After a user correction, update the checklist rule and inspect every comparable panel, not just the visible screenshot example.
+
+Evidence: current app state, reviewed scripts, execution logs and verified output files.
+
+## 8. Final delivery and acceptance
+
+- [ ] Save editable .prism and, when required, .ai files; export final PDF and previews. Link only files that actually exist.
+- [ ] Provide a concise separate methods/provenance note describing methods, differences, uncertainties and sensitivity versions. Do not put a long report on the figure itself.
+- [ ] If reopening is necessary for verification, confirm the save and perform one controlled check rather than generating many windows.
+- [ ] Remeasure after the latest layout change and recalculate after the latest data/statistical change. Earlier reports cannot verify later artifacts.
+- [ ] Distinguish actual changes, completed checks and unresolved issues in delivery. State that the listed checks passed, never that every possible error has been ruled out.
+- [ ] Mark unverifiable checks unresolved rather than complete. Continue independent unfinished work; leave only information-dependent parts awaiting clarification.
+
+Evidence: final saved artifacts, fresh audits, rendered previews and documented unresolved/not-applicable items.
+
+## Native scripting notes
+
+Prefer currently available native interfaces and verified scripts; use the UI for unsupported settings and verification. Read current tool documentation instead of copying stale UI IDs or APIs.
+
+A previously verified wrapper invocation has this form:
 
 ```sh
 FIG="<installed-skill>/scripts/figkit/fig"
@@ -111,9 +137,9 @@ python3 "$FIG" ai info
 python3 "$FIG" ai run /absolute/path/reviewed-layout.jsx --timeout 90
 ```
 
-这些只是调用形式。执行前核实封装仍存在、脚本内容、活动文档与目标路径，遵守当前运行环境权限。不要把示例直接当作无条件修改命令。
+Confirm that the wrapper exists, review the script and verify the active document, destination and permissions before running it. These are examples, not unconditional editing commands.
 
-当前已打开的 Prism 项目可用经验证的 PZC 导出路径，例如：
+For an already-open Prism project, a reviewed PZC export may use:
 
 ```text
 GoTo G, 1
@@ -121,36 +147,19 @@ ExportPDF "/absolute/output/A.pdf"
 CloseScriptDialog
 ```
 
-这里 G/页序号仅是示例；运行前生成实际面板映射，不能硬编码所有项目第 1 页都是 A。布局页使用对应 Layout 路径。不要在每张图的脚本中重复 Open。检查脚本日志编码及 `COMPLETE! No Errors.`，然后检查实际输出；日志成功并不等于图正确。
+Resolve actual graph/layout page mappings first; page 1 is not universally panel A. Do not repeat Open for every panel. Check log encoding and `COMPLETE! No Errors.`, then inspect actual outputs; a successful log alone does not verify the figure.
 
-- [ ] 通常只保持一个 Prism 工作项目；确需参考时再打开一个。不要一次打开大量 Prism 窗口，不反复替换工作文件。
-- [ ] 不直接修改未记录的 `.prism` 二进制图形对象来拼凑星号/图例；曾导致缺对象、关联错误和应用异常。可读提取不等于可以安全写回。
-- [ ] 统计模板不得残留演示数据。模拟数据必须独立标明，不能混入真实项目；示例 Welch 检验不作为实验默认检验。
-- [ ] 每批修改后刷新状态；失败先读取界面/日志/文件状态。相同失败没有新证据时不循环尝试；改用已验证的等价路径。
-- [ ] 不把 AX 超时、截图失败、文件对话框按钮禁用说成文件损坏。先保留证据和当前成果。重启前确认未保存内容；历史一次重启授权不能概括未来所有状态。
-- [ ] 对象修改先预检数量、名称、范围；执行中失败需恢复本批或明确剩余状态。不要在部分变更后继续覆盖最终文件。
-- [ ] 保持简单任务简单；不为小幅可逆排版另造测试程序。数据和统计变化需相应核查，视觉变更需渲染及坐标核验。
-- [ ] 用户纠正后，将规则更新到清单并检查全部同类面板；不要只修截图可见的一处。
+## Acceptance evidence matrix
 
-## 8. 最终交付清单与完成标准
-
-| 验收项 | 必须具备的证据 | 不合格处理 |
+| Area | Required evidence | If missing or failed |
 |---|---|---|
-| 来源与版本 | 源/工作/最终文件的路径、时间、哈希；面板映射 | 先找回正确版本，不混用 |
-| 数据 | 逐点差异报告、n、条件、单位、排除清单 | 暂停受影响结论，继续独立格式任务 |
-| 统计 | 参数、比较集合、校正 P、复算、设计限制 | 不画未经支持的星号 |
-| Prism | 全部面板存在、原生可编辑、源表/结果关联、保存完成 | 修复对应面板及全部同类问题 |
-| 显著性 | 每条线能追到比较和 P，10 pt 统一，合并合法 | 重新生成/修改该线并复核 |
-| AI | 同行轴线与角标共线、参考网格、图例位置、行距、无变形 | 修复后重新导出预览 |
-| 文件完整性 | AI/PDF/PNG 实际可读；图/字/图片齐全；外部链接无缺失 | 不称“已完成” |
-| 最终一致性 | 最后保存版本重新生成的审计和预览 | 旧报告不能冒充新文件验证 |
+| Sources/versions | Source, working and final paths/times/hashes; panel map | Recover the correct version; do not mix versions |
+| Data | Observation-level differences, n, conditions, units, exclusions | Pause affected conclusions; continue independent work |
+| Statistics | Parameters, comparison sets, adjusted P, recomputation, limitations | Do not draw unsupported stars |
+| Prism | All panels, native editability, source/result links, saved state | Repair affected and comparable panels |
+| Significance | Every line maps to a contrast/P; consistent 10 pt historical style | Regenerate and check the annotation |
+| Illustrator | Row/column/letter alignment, applicable grid, legend gaps, no distortion | Fix and export a fresh preview |
+| File integrity | Readable AI/PDF/PNG, complete content and resolved external links | Do not claim completion |
+| Final consistency | Audits/previews generated from the last saved version | Replace stale evidence with actual rechecks |
 
-- [ ] 保存可编辑 `.prism`、按需保存 `.ai`，导出最终 PDF 与预览；报告中只链接真实存在的文件。
-- [ ] 写独立简明统计/来源说明，包含实际方法、差异、待核实点、敏感性版本。不要把长报告塞在画面上。
-- [ ] 需要验证重新打开时，先确认已保存，受控验证一次；不要为了“验证”重复制造大量窗口。
-- [ ] 最近一次排版之后重测位置，最近一次数据/统计变化之后重算结果。不能使用早于最后修改的报告宣称最终版通过。
-- [ ] 交付说明区分：本次实际修改、实际核验、未确认事项。可以说“列出的检查均通过”，不能说“任何可能的错误都已排除”。
-- [ ] 不能验证的项目标为未验证，不能打勾。未完成的独立任务持续做，只有必要信息不足的部分保留待确认。
-
-建议每项保留字段：`requirement_id / panel_id / expected / measured / source_hash / final_hash / evidence_path / checked_at / status(pass, fail, unresolved, not_applicable)`。该字段约定是未来记录方式，不代表已有全自动验收器。
-
+Suggested evidence fields: `requirement_id / panel_id / expected / measured / source_hash / final_hash / evidence_path / checked_at / status(pass, fail, unresolved, not_applicable)`. This is a record convention, not a claim that native verification is fully automated. The 81 requirements above correspond in order to WF-001 through WF-081 in [checklist.json](checklist.json).

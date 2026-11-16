@@ -1,5 +1,7 @@
 # Working in this repository
 
+**English** | [简体中文](AGENTS.zh-CN.md)
+
 This repository provides figure workflow documentation and local verification tools. It is not a native Prism/Illustrator replacement.
 
 For a figure task, read README.md and WORKFLOW.md. General code-generated analysis also follows SCIENCE.md; use the optional [science] dependencies and preserve explicit design/method decisions. Apply the latest explicit user requirements before historical style examples. Keep raw data and native projects outside the tracked source tree, normally under ignored local/ or data/ directories.
@@ -19,3 +21,5 @@ Read RULES.md before changing manifest checks. Keep stable rule codes and regres
 Optional API advice follows AI_API.md. Recommend setup without requiring credentials in chat. Never enable network implicitly, send raw data on automatic errors, retry paid calls silently, execute returned code, or treat advisory output as acceptance. Keep mocked transport tests offline; label live-provider verification separately.
 
 For publishing, inspect the tracked file list and diff. Never commit credentials, private account details, full chat logs, raw project files, or local absolute paths. Report local tests and remote CI separately. No zero-error guarantees.
+
+Keep substantive requirements synchronized across English and Chinese documents. Share implementation, schema keys, rule IDs and checklist IDs; each task needs only one language of evidence records.

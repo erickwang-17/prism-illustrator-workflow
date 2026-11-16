@@ -224,5 +224,5 @@ def failure_request(config_path, error):
                 ('Counts must','invalid contingency counts'),('observed_counts','count provenance unconfirmed'),
                 ('Formula cells','spreadsheet formula input'),('Observed groups differ','group-order mismatch')]
     category=next((category for prefix,category in categories if prefix.lower() in text.lower()),'analysis input or export error')
-    return prepare(load_config(config_path),'分析/作图遇到问题：'+category+'。请说明可能原因、需要补充的信息、处理步骤和验证方法。',
+    return prepare(load_config(config_path),'Analysis/plotting problem: '+category+'. Explain likely causes, missing information, next steps and verification checks.',
                    'Figureflow stopped with an error. No source values, filenames, labels or raw exception text are attached. Do not invent missing context.')
