@@ -11,6 +11,9 @@ from collections import defaultdict
 from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
+from figureflow_lint import lint_manifest, list_rules
+
+__version__ = '0.2.0'
 
 
 def sha256(path):
@@ -24,7 +27,15 @@ def sha256(path):
 def load_json(path):
     def invalid(value):
         raise ValueError('Non-finite JSON number: ' + value)
-    return json.loads(Path(path).read_text(encoding='utf-8-sig'), parse_constant=invalid)
+    def unique(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError('Duplicate JSON key: ' + key)
+            result[key] = value
+        return result
+    return json.loads(Path(path).read_text(encoding='utf-8-sig'), parse_constant=invalid,
+                      object_pairs_hook=unique)
 
 
 def number(value):
@@ -276,18 +287,57 @@ def prism_export_script(data, output_dir):
     return '\n'.join(lines) + '\n'
 
 
+def summarize_reports(paths):
+    """Aggregate declared check outcomes without rerunning or endorsing their evidence."""
+    reports = []
+    seen = set()
+    for path in paths:
+        resolved = Path(path).resolve()
+        if resolved in seen:
+            raise ValueError('Duplicate report path')
+        seen.add(resolved)
+        report = load_json(resolved)
+        if not isinstance(report, dict) or type(report.get('report_version')) is not int or report['report_version'] != 1:
+            raise ValueError('Expected a version 1 figureflow report')
+        if report.get('command') not in ('audit', 'plan', 'layout', 'verify', 'lint') or report.get('status') not in ('pass', 'fail'):
+            raise ValueError('Expected a supported check report with pass/fail status')
+        if not isinstance(report.get('tool_version'), str) or not report['tool_version']:
+            raise ValueError('Report missing tool version')
+        reports.append({'file': resolved.name, 'sha256': sha256(resolved),
+                        'command': report['command'], 'status': report['status'],
+                        'tool_version': report['tool_version'],
+                        'full_rule_set': report.get('full_rule_set'),
+                        'scope': report.get('scope', 'Unspecified; inspect original report')})
+    if not reports:
+        raise ValueError('Provide at least one report')
+    return {'status': 'fail' if any(r['status'] == 'fail' for r in reports) else 'pass',
+            'reports': reports, 'report_count': len(reports), 'complete_figure_acceptance': False,
+            'scope': 'Supplied reports only; does not rerun checks, establish freshness, or replace final evidence review'}
+
+
 def main(argv=None):
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(description=__doc__, allow_abbrev=False)
+    parser.add_argument('--version', action='version', version='figureflow ' + __version__)
     subs = parser.add_subparsers(dest='command', required=True)
-    p = subs.add_parser('audit')
+    p = subs.add_parser('audit', help='Compare source and candidate observations exactly')
     p.add_argument('source'); p.add_argument('candidate'); p.add_argument('--exclusions')
     p = subs.add_parser('plan'); p.add_argument('input')
     p = subs.add_parser('layout'); p.add_argument('input')
     p = subs.add_parser('verify'); p.add_argument('input'); p.add_argument('--root', required=True)
     p = subs.add_parser('prism-export'); p.add_argument('input'); p.add_argument('--directory', required=True)
     p = subs.add_parser('hash'); p.add_argument('input')
+    p = subs.add_parser('lint', help='Check declared figure formatting with numbered rules')
+    p.add_argument('input')
+    p.add_argument('--select', help='Comma-separated exact rule codes; omitted means all rules')
+    p.add_argument('--format', choices=('json', 'text'), default='json')
+    p = subs.add_parser('rules', help='List supported checks and their meanings')
+    p = subs.add_parser('summary', help='Aggregate existing check reports without re-running analyses')
+    p.add_argument('inputs', nargs='+')
     for p in subs.choices.values():
+        p.allow_abbrev = False
         p.add_argument('--out', help='Create a new output file; refuses to overwrite')
+        p.add_argument('--error-format', choices=('text', 'json'), default='text',
+                       help='Format runtime input/file errors on stderr (usage errors remain text)')
     args = parser.parse_args(argv)
     try:
         if args.command == 'audit':
@@ -296,16 +346,33 @@ def main(argv=None):
         elif args.command == 'layout': result = layout_audit(load_json(args.input))
         elif args.command == 'verify': result = verify_evidence(load_json(args.input), args.root)
         elif args.command == 'prism-export': result = prism_export_script(load_json(args.input), args.directory)
+        elif args.command == 'lint':
+            result = lint_manifest(load_json(args.input), args.select.split(',') if args.select is not None else None)
+        elif args.command == 'rules': result = list_rules()
+        elif args.command == 'summary': result = summarize_reports(args.inputs)
         else: result = {'status': 'pass', 'sha256': sha256(args.input)}
-        if isinstance(result, dict) and args.command in ('plan', 'layout', 'verify'):
+        if isinstance(result, dict):
+            result.update(report_version=1, tool_version=__version__, command=args.command)
+        if isinstance(result, dict) and args.command in ('plan', 'layout', 'verify', 'lint'):
             result['input_sha256'] = sha256(args.input)
         text = result if isinstance(result, str) else json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + '\n'
+        if args.command == 'lint' and args.format == 'text':
+            lines = [f"{d['path']}: {d['code']} {d['message']}" for d in result['diagnostics']]
+            lines.append(f"{result['status']}: {len(result['diagnostics'])} errors; "
+                         f"{len(result['selected_rules'])} selected rules; {result['panel_count']} panels")
+            lines.append(result['scope'])
+            text = '\n'.join(lines) + '\n'
         if args.out:
             with Path(args.out).open('x', encoding='utf-8') as f: f.write(text)
         else: print(text, end='')
         return 1 if isinstance(result, dict) and result.get('status') == 'fail' else 0
-    except (ValueError, OSError, KeyError, TypeError, csv.Error) as e:
-        print('figureflow: ' + str(e), file=sys.stderr)
+    except (ValueError, OSError, KeyError, TypeError, AttributeError, csv.Error) as e:
+        if args.error_format == 'json':
+            print(json.dumps({'status': 'error', 'code': 'INPUT001', 'message': str(e),
+                              'report_version': 1, 'tool_version': __version__,
+                              'command': args.command}, ensure_ascii=False), file=sys.stderr)
+        else:
+            print('figureflow: ' + str(e), file=sys.stderr)
         return 2
 
 

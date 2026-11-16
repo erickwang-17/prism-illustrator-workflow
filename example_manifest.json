@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "reference": {
+    "group_order": [
+      "Vav-Cre",
+      "Atm",
+      "NAtm",
+      "NA_KO_CMML",
+      "NA_KO_AML"
+    ],
+    "palette": {
+      "Vav-Cre": "#000000",
+      "Atm": "#FF9900",
+      "NAtm": "#FF33FF",
+      "NA_KO_CMML": "#FF3300",
+      "NA_KO_AML": "#FFD5D5"
+    },
+    "border_width_pt": 1,
+    "error_width_pt": 1
+  },
+  "panels": [
+    {
+      "id": "DEMO_C",
+      "kind": "scatter",
+      "font": "Arial",
+      "axis_bold": true,
+      "x_ticks": false,
+      "x_title": "",
+      "legends": [
+        {
+          "group": "Vav-Cre",
+          "label": "Vav-Cre (n=3)",
+          "audited_n": 3,
+          "n_italic": true,
+          "font": "Arial",
+          "symbol": "circle",
+          "native": true,
+          "border_color": "Black",
+          "border_width_pt": 1,
+          "fill": "#000000"
+        },
+        {
+          "group": "Atm",
+          "label": "Atm (n=3)",
+          "audited_n": 3,
+          "n_italic": true,
+          "font": "Arial",
+          "symbol": "circle",
+          "native": true,
+          "border_color": "Black",
+          "border_width_pt": 1,
+          "fill": "#FF9900"
+        },
+        {
+          "group": "NAtm",
+          "label": "NAᵗᵐ (n=3)",
+          "audited_n": 3,
+          "n_italic": true,
+          "font": "Arial",
+          "symbol": "circle",
+          "native": true,
+          "border_color": "Black",
+          "border_width_pt": 1,
+          "fill": "#FF33FF"
+        },
+        {
+          "group": "NA_KO_CMML",
+          "label": "NA⁻/⁻ CMML (n=3)",
+          "audited_n": 3,
+          "n_italic": true,
+          "font": "Arial",
+          "symbol": "circle",
+          "native": true,
+          "border_color": "Black",
+          "border_width_pt": 1,
+          "fill": "#FF3300"
+        },
+        {
+          "group": "NA_KO_AML",
+          "label": "NA⁻/⁻ AML (n=3)",
+          "audited_n": 3,
+          "n_italic": true,
+          "font": "Arial",
+          "symbol": "circle",
+          "native": true,
+          "border_color": "Black",
+          "border_width_pt": 1,
+          "fill": "#FFD5D5"
+        }
+      ],
+      "stars": [
+        {
+          "text": "**",
+          "font": "Arial",
+          "bold": true,
+          "size_pt": 10
+        }
+      ],
+      "error_bars": {
+        "color": "Black",
+        "layer": "above_symbols",
+        "width_pt": 1
+      }
+    }
+  ]
+}

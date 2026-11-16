@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: figureflow-tests
+        name: Figureflow regression checks
+        language: system
+        entry: python3 -m unittest discover -v
+        pass_filenames: false
+        always_run: true

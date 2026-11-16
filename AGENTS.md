@@ -12,6 +12,8 @@ For alignment, identify actual axes or image boundaries, not full clipped PDF bo
 
 Evidence must refer to final versions, including source, analysis parameters, native outputs, and rendered previews as applicable. Do not mark checklist checks pass solely because files exist or the CLI returned zero. The verify command checks supplied attestations and hashes, not scientific truth or visual correctness.
 
-For code changes, run `python3 -m unittest -v test_figureflow.py` and the affected example commands. Add a regression case for meaningful failure modes. Keep Python runtime dependencies limited to the standard library unless a concrete feature requires otherwise. Do not add real experimental data to tests or CI.
+For code changes, run `python3 -m unittest discover -v` and the affected example commands. Add a regression case for meaningful failure modes. Keep Python runtime dependencies limited to the standard library unless a concrete feature requires otherwise. Do not add real experimental data to tests or CI.
+
+Read RULES.md before changing manifest checks. Keep stable rule codes and regression cases. Never auto-correct measured manifests or report a partial --select run as full acceptance. Keep SKILL.md concise and route details to existing documents.
 
 For publishing, inspect the tracked file list and diff. Never commit credentials, private account details, full chat logs, raw project files, or local absolute paths. Report local tests and remote CI separately. No zero-error guarantees.

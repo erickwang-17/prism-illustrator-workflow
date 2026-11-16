@@ -1,5 +1,11 @@
 # Prism → Illustrator Figure Workflow
 
+[![Tests](https://github.com/erickwang-17/prism-illustrator-workflow/actions/workflows/ci.yml/badge.svg)](https://github.com/erickwang-17/prism-illustrator-workflow/actions/workflows/ci.yml)
+
+**v0.2.0** · Python 3.10+ · 标准库运行时 · 原生图形独立验收
+
+[流程](WORKFLOW.md) · [规则](RULES.md) · [任务模板](TASK_TEMPLATE.md) · [Agent 入口](SKILL.md) · [12 个设计参考](REFERENCES.md) · [更新记录](CHANGELOG.md)
+
 可执行核验工具 + 81 项工作流清单。用来把“数据与分析正确”和“图像格式正确”分别验收，减少只改一张图、误删数据、旧星号遗留和排版反复偏移。
 
 **当前版本不是一键统计/作图机器人。** Python 负责可复现的检查和计划；实验设计判断、Prism 原生设置、Illustrator 图形识别与最终视觉核验由操作者/agent 按工作流完成。没有直接改写 `.prism` 二进制结构，也不在后台控制应用。
@@ -11,14 +17,27 @@
 Python 3.10 或更新版本；无需第三方 Python 包。在仓库根目录运行：
 
 ```sh
-python3 -m unittest -v test_figureflow.py
+python3 -m unittest discover -v
+python3 figureflow.py lint example_manifest.json --format text
 python3 figureflow.py audit example_data.csv example_data.csv
 python3 figureflow.py plan example_comparisons.json
 python3 figureflow.py layout example_layout.json
 python3 figureflow.py verify checklist.json --root .
 ```
 
-最后一个命令**应该失败**：81 项初始状态均为 `unresolved`，不能自动宣称已验收。前面三个只是模拟输入演示。检查通过退出码 0，发现差异/未完成退出码 1，输入格式或文件错误退出码 2。
+最后一个命令**应该失败**：81 项初始状态均为 `unresolved`，不能自动宣称已验收。前面的检查命令使用模拟输入。检查通过退出码 0，发现差异/未完成退出码 1，输入格式或文件错误退出码 2。
+
+可选：在虚拟环境安装命令入口。安装可能下载 setuptools 构建工具，运行时不需要第三方包。未安装仍可直接运行 figureflow.py。
+
+```sh
+python3 -m venv .venv
+.venv/bin/python -m pip install .
+.venv/bin/figureflow --version
+.venv/bin/figureflow rules
+.venv/bin/figureflow lint example_manifest.json --format text
+```
+
+已使用 uv 时也可执行 `uv run figureflow rules`。完整仓库提供 SKILL.md 的配套资源，仅复制入口文件不够。可选 pre-commit 配置与 CI 共用 unittest discover；需要自行安装 pre-commit 并在此仓库启用，没有修改全局 hooks。
 
 所有子命令可加 `--out new-report.json`。输出文件必须尚不存在，防止覆盖原始输入或既有报告。不要用 shell 重定向覆盖输入文件。
 
@@ -46,6 +65,8 @@ flowchart TD
 | `verify` | 检查指定验收项有审阅说明、时间与文件哈希，拒绝过期证据 | 审阅判断必然正确、未列入范围的文件也已通过 |
 | `prism-export` | 按显式页映射生成 PZC 导出脚本，不含 Open/Save，不覆盖已有 PDF | 已执行 Prism、页映射自动正确 |
 | `hash` | 计算单文件 SHA-256 | 哈希相同就能证明科研结论正确 |
+| `lint` / `rules` | 10 条带编号格式检查、严格字段/正则校验与问题位置 | 已自动提取原生样式或修复原图 |
+| `summary` | 汇总指定检查报告状态、范围及文件哈希 | 所有任务都覆盖、输入仍新鲜或已经重新分析 |
 
 ## 数据输入协议
 

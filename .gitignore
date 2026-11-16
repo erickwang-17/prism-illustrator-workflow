@@ -18,3 +18,7 @@ reports/
 *.tif
 *.tiff
 *.zip
+.venv/
+*.egg-info/
+build/
+dist/
