@@ -18,10 +18,13 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python }}
+      - run: python -m pip install '.[science]'
       - run: python -m unittest discover -v
       - run: python figureflow.py audit example_data.csv example_data.csv
       - run: python figureflow.py plan example_comparisons.json
       - run: python figureflow.py layout example_layout.json
-      - run: python -m pip install .
       - run: figureflow --version
       - run: figureflow lint example_manifest.json --format text
+      - run: python demo_science.py --directory local/ci-demo
+      - run: figureflow inspect local/ci-demo/calibration.tsv
+      - run: figureflow analyze local/ci-demo/website.json --output-dir local/installed-cli-output
