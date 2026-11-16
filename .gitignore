@@ -22,3 +22,6 @@ reports/
 *.egg-info/
 build/
 dist/
+
+# Reviewed synthetic demonstration only; all other image outputs stay ignored.
+!demo-gallery.png

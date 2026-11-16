@@ -3,15 +3,15 @@ import re
 
 
 RULES = {
-    'NAM001': ('canonical-control', 'Use Vav-Cre for the control legend name.'),
+    'NAM001': ('canonical-control', 'Use the canonical names declared by the active profile.'),
     'LEG001': ('sample-count', 'Each legend needs one positive (n=N), matching audited_n.'),
-    'LEG002': ('sample-italics', 'Render the sample-count suffix in italics.'),
+    'LEG002': ('sample-italics', 'Match the active profile sample-count italic policy.'),
     'LEG003': ('legend-order', 'Legend group IDs must follow the declared group_order.'),
-    'FMT001': ('arial', 'All reported text must use Arial.'),
-    'FMT002': ('native-symbol-border', 'Scatter symbols must be native circles with black borders.'),
+    'FMT001': ('arial', 'All reported text must use the profile font or one consistent measured font.'),
+    'FMT002': ('native-symbol-border', 'Scatter circles need black reference-width borders and the profile native-object policy.'),
     'FMT003': ('error-bars', 'Scatter error bars must be black, above symbols, and match the reference width.'),
-    'FMT004': ('axes', 'Axis labels/titles must be bold; remove scatter x ticks and XTitle.'),
-    'STA001': ('star-format', 'Reported stars must be Arial, bold, 10 pt, and contain 1–4 stars or ns.'),
+    'FMT004': ('axes', 'Axes must match the profile bold/tick policy and have no XTitle placeholder.'),
+    'STA001': ('star-format', 'Stars must match the profile font/bold/size and contain 1–4 stars or ns.'),
     'COL001': ('exact-fill', 'Each symbol fill must equal its declared reference RGB hex value.'),
 }
 
@@ -54,8 +54,38 @@ def identifiers(value, path):
         raise ValueError(f'{path}: duplicate identifiers')
 
 
-def lint_manifest(data, select=None):
+PROFILES = {
+    'uwm': dict(font='Arial', canonical_names={'Vav-Cre': 'Vav-Cre'}, n_italic=True,
+                axis_bold=True, scatter_x_ticks=False, require_native=True,
+                star_size_pt=10, star_bold=True),
+    'generic': dict(font=None, canonical_names={}, n_italic=None,
+                    axis_bold=None, scatter_x_ticks=None, require_native=False,
+                    star_size_pt=10, star_bold=True),
+}
+
+
+def resolve_profile(profile):
+    if isinstance(profile, str):
+        if profile not in PROFILES:
+            raise ValueError('Unknown style profile')
+        return dict(PROFILES[profile]), profile
+    object_fields(profile, set(PROFILES['generic']), '$profile')
+    if profile['font'] is not None: text(profile['font'], '$profile.font')
+    if not isinstance(profile['canonical_names'], dict):
+        raise ValueError('canonical_names must map machine IDs to display names')
+    for k, v in profile['canonical_names'].items():
+        text(k, '$profile.canonical_names.key'); text(v, '$profile.canonical_names.value')
+    for field in ('n_italic', 'axis_bold', 'scatter_x_ticks'):
+        if profile[field] is not None: boolean(profile[field], '$profile.'+field)
+    boolean(profile['require_native'], '$profile.require_native')
+    boolean(profile['star_bold'], '$profile.star_bold')
+    positive(profile['star_size_pt'], '$profile.star_size_pt')
+    return dict(profile), 'custom'
+
+
+def lint_manifest(data, select=None, profile="uwm"):
     """Check a versioned, explicitly measured manifest, not a Prism file."""
+    policy, profile_name = resolve_profile(profile)
     chosen = list(RULES) if select is None else select
     if not chosen or len(set(chosen)) != len(chosen) or any(x not in RULES for x in chosen):
         raise ValueError('select must contain distinct known rule codes')
@@ -75,6 +105,7 @@ def lint_manifest(data, select=None):
     panels = data['panels']
     if not isinstance(panels, list) or not panels:
         raise ValueError('$.panels: expected a nonempty list')
+    expected_font = policy['font'] or panels[0].get('font')
     ids = []
     issues = []
     evaluated = {code: 0 for code in chosen}
@@ -99,9 +130,9 @@ def lint_manifest(data, select=None):
         boolean(panel['x_ticks'], path + '.x_ticks')
         if not isinstance(panel['x_title'], str):
             raise ValueError(path + '.x_title: expected text')
-        check('FMT001', panel['font'] == 'Arial', path + '.font')
-        check('FMT004', panel['axis_bold'] and panel['x_title'] != 'XTitle' and
-              (panel['kind'] != 'scatter' or panel['x_ticks'] is False), path)
+        check('FMT001', panel['font'] == expected_font, path + '.font')
+        check('FMT004', (policy['axis_bold'] is None or panel['axis_bold'] == policy['axis_bold']) and panel['x_title'] != 'XTitle' and
+              (panel['kind'] != 'scatter' or policy['scatter_x_ticks'] is None or panel['x_ticks'] == policy['scatter_x_ticks']), path)
         legends = panel['legends']
         if not isinstance(legends, list) or not legends:
             raise ValueError(path + '.legends: expected a nonempty list')
@@ -124,13 +155,13 @@ def lint_manifest(data, select=None):
                 raise ValueError(lp + '.fill: expected #RRGGBB')
             suffix = SAMPLE_RE.search(legend['label'])
             label_name = legend['label'][:suffix.start()].rstrip() if suffix else legend['label']
-            check('NAM001', legend['group'] != 'Vav-Cre' or label_name == 'Vav-Cre', lp + '.label')
+            check('NAM001', legend['group'] not in policy['canonical_names'] or label_name == policy['canonical_names'][legend['group']], lp + '.label')
             check('LEG001', bool(suffix) and int(suffix[1]) == legend['audited_n'] and
                   legend['label'].count('(n=') == 1, lp + '.label')
-            check('LEG002', legend['n_italic'], lp + '.n_italic')
-            check('FMT001', legend['font'] == 'Arial', lp + '.font')
+            check('LEG002', policy['n_italic'] is None or legend['n_italic'] == policy['n_italic'], lp + '.n_italic')
+            check('FMT001', legend['font'] == expected_font, lp + '.font')
             if panel['kind'] == 'scatter':
-                check('FMT002', legend['native'] and legend['symbol'] == 'circle' and
+                check('FMT002', (legend['native'] or not policy['require_native']) and legend['symbol'] == 'circle' and
                       legend['border_color'] == 'Black' and
                       legend['border_width_pt'] == ref['border_width_pt'], lp)
             check('COL001', legend['fill'].upper() == ref['palette'][legend['group']].upper(), lp + '.fill')
@@ -157,11 +188,11 @@ def lint_manifest(data, select=None):
             text(star['font'], sp + '.font')
             boolean(star['bold'], sp + '.bold')
             positive(star['size_pt'], sp + '.size_pt')
-            check('STA001', bool(STAR_RE.fullmatch(star['text'])) and star['font'] == 'Arial' and
-                  star['bold'] and star['size_pt'] == 10, sp)
+            check('STA001', bool(STAR_RE.fullmatch(star['text'])) and star['font'] == expected_font and
+                  star['bold'] == policy['star_bold'] and star['size_pt'] == policy['star_size_pt'], sp)
     identifiers(ids, '$.panels.id')
     return {'status': 'fail' if issues else 'pass', 'diagnostics': issues,
-            'selected_rules': chosen, 'rule_evaluations': evaluated,
+            'profile': profile_name, 'profile_settings': policy, 'selected_rules': chosen, 'rule_evaluations': evaluated,
             'full_rule_set': chosen == list(RULES), 'panel_count': len(panels),
             'scope': 'Declared manifest only; no native-file inspection, sample-count calculation, or scientific validation'}
 

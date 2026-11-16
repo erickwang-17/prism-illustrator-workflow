@@ -11,11 +11,12 @@ Start with the latest user decisions and the currently saved or user-edited proj
 
 Read only the applicable material:
 
+- [SCIENCE.md](SCIENCE.md): design-explicit CSV/TSV/XLSX analysis, supported methods, code-generated SVG/PDF/PNG, optional scientific dependencies, and cross-domain tests. Use this path for general data; do not infer design or copy historical laboratory defaults.
 - [WORKFLOW.md](WORKFLOW.md): data, statistics, native formatting, export and layout requirements. Search the relevant section; retain the full checklist for final delivery.
 - [README.md](README.md): exact CLI input/output contracts and available commands.
 - [RULES.md](RULES.md): measured figure manifests, rule codes, and regex boundaries when checking formatting.
 
-Keep three decisions separate: data fidelity, reproduction of an existing analysis, and validity of that analysis for the experimental design. Matching raw data does not establish the latter two. `plan` consumes adjusted P values; it never calculates them. Record unresolved design questions and continue independent work.
+Keep three decisions separate: data fidelity, reproduction of an existing analysis, and validity of that analysis for the experimental design. Matching raw data does not establish the latter two. `plan` consumes adjusted P values; it never calculates them. `analyze` calculates results only for its explicitly supported, declared designs; code plots are not native Prism edits. Record unresolved design questions and continue independent work.
 
 Preserve native circles, borders, axes, legends and text. Do not simulate borders with offset shapes or substitute screenshots for native edits. Apply a formatting change to every affected panel, then remeasure. Only one relevant native project window should be manipulated at a time; after a failed open, inspect the actual app state before retrying.
 

@@ -2,7 +2,7 @@
 
 This repository provides figure workflow documentation and local verification tools. It is not a native Prism/Illustrator replacement.
 
-For a figure task, read README.md and WORKFLOW.md. Apply the latest explicit user requirements before historical style examples. Keep raw data and native projects outside the tracked source tree, normally under ignored local/ or data/ directories.
+For a figure task, read README.md and WORKFLOW.md. General code-generated analysis also follows SCIENCE.md; use the optional [science] dependencies and preserve explicit design/method decisions. Apply the latest explicit user requirements before historical style examples. Keep raw data and native projects outside the tracked source tree, normally under ignored local/ or data/ directories.
 
 Do not silently select or change a statistical test. Distinguish source-data fidelity, reproduction of an existing analysis, and experimental-design validity. The plan command consumes supplied adjusted P values; it does not perform statistical testing. Missing biological design information blocks dependent conclusions, not unrelated formatting work.
 
@@ -12,7 +12,7 @@ For alignment, identify actual axes or image boundaries, not full clipped PDF bo
 
 Evidence must refer to final versions, including source, analysis parameters, native outputs, and rendered previews as applicable. Do not mark checklist checks pass solely because files exist or the CLI returned zero. The verify command checks supplied attestations and hashes, not scientific truth or visual correctness.
 
-For code changes, run `python3 -m unittest discover -v` and the affected example commands. Add a regression case for meaningful failure modes. Keep Python runtime dependencies limited to the standard library unless a concrete feature requires otherwise. Do not add real experimental data to tests or CI.
+For code changes, install `.[science]` in the test environment and run `python3 -m unittest discover -v` and the affected example commands. Add a regression case for meaningful failure modes. Keep Python runtime dependencies limited to the standard library unless a concrete feature requires otherwise. Do not add real experimental data to tests or CI.
 
 Read RULES.md before changing manifest checks. Keep stable rule codes and regression cases. Never auto-correct measured manifests or report a partial --select run as full acceptance. Keep SKILL.md concise and route details to existing documents.
 

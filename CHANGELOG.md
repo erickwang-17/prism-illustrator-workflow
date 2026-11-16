@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.0 — 2026-11-16
+
+- 新增 inspect/analyze：CSV、TSV、XLSX 显式列映射与实验设计校验。
+- 新增 Welch、配对 t、普通 ANOVA、Kruskal、Pearson、Spearman 置换、Fisher 和描述性序列。
+- 显式指定组对使用 Welch + Holm；记录 n、支持的效应量/CI、缺失、警告与哈希。
+- 生成真正的代码 SVG/PDF/PNG；原始点、上层误差线、明确括线与文字边界检查。
+- 样式增加 generic/custom 配置；uwm 保持旧版默认，不影响新分析的通用样式。
+- 8 个无关领域的合成案例；增加独立数值基准、异常输入、来源不变与渲染测试。
+- 标准库审计保持独立；科学计算仅通过 [science] 安装。完整测试现在需要此 extra。
+- 不新增原生 Prism/Illustrator 自动写入，不保证任意数据或实验设计都可处理。
+
 ## 0.2.0 — 2026-11-16
 
 - 增加 10 条编号格式规则、严格清单校验、rules / lint / summary 命令。

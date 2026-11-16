@@ -2,22 +2,32 @@
 
 [![Tests](https://github.com/erickwang-17/prism-illustrator-workflow/actions/workflows/ci.yml/badge.svg)](https://github.com/erickwang-17/prism-illustrator-workflow/actions/workflows/ci.yml)
 
-**v0.2.0** · Python 3.10+ · 标准库运行时 · 原生图形独立验收
+**v0.3.0** · Python 3.10+ · 标准库审计 + 可选科学计算 · 原生图形独立验收
 
-[流程](WORKFLOW.md) · [规则](RULES.md) · [任务模板](TASK_TEMPLATE.md) · [Agent 入口](SKILL.md) · [12 个设计参考](REFERENCES.md) · [更新记录](CHANGELOG.md)
+[通用分析与作图](SCIENCE.md) · [流程](WORKFLOW.md) · [规则](RULES.md) · [任务模板](TASK_TEMPLATE.md) · [Agent 入口](SKILL.md) · [12 个设计参考](REFERENCES.md) · [更新记录](CHANGELOG.md)
 
 可执行核验工具 + 81 项工作流清单。用来把“数据与分析正确”和“图像格式正确”分别验收，减少只改一张图、误删数据、旧星号遗留和排版反复偏移。
 
-**当前版本不是一键统计/作图机器人。** Python 负责可复现的检查和计划；实验设计判断、Prism 原生设置、Illustrator 图形识别与最终视觉核验由操作者/agent 按工作流完成。没有直接改写 `.prism` 二进制结构，也不在后台控制应用。
+**新增通用分析与代码作图。** `inspect/analyze` 接入 CSV、TSV、XLSX，以明确的列映射和实验设计运行受支持检验，输出结果、追溯记录、SVG/PDF/PNG。适用于独立组、两条件配对、相关、2×2 列联表和描述性时间序列；详见 [支持矩阵与限制](SCIENCE.md)。实验设计判断、原生 Prism/Illustrator 编辑和最终视觉核验仍需工作流审阅，不承诺任意数据自动零错误。
 
 仓库只含工作流、代码及明确标记的模拟示例，没有实验原始文件或聊天记录。
 
 ## 快速开始
 
-Python 3.10 或更新版本；无需第三方 Python 包。在仓库根目录运行：
+Python 3.10 或更新版本。先安装可选科学计算组件，再运行完整测试与跨领域案例：
 
 ```sh
-python3 -m unittest discover -v
+python3 -m venv .venv
+.venv/bin/python -m pip install '.[science]'
+.venv/bin/python -m unittest discover -v
+.venv/bin/python demo_science.py --directory local/demo
+.venv/bin/figureflow inspect local/demo/manufacturing.csv
+.venv/bin/figureflow analyze local/demo/manufacturing.json --output-dir local/review-run
+```
+
+下面的旧审计命令仅需标准库，可直接运行：
+
+```sh
 python3 figureflow.py lint example_manifest.json --format text
 python3 figureflow.py audit example_data.csv example_data.csv
 python3 figureflow.py plan example_comparisons.json
@@ -27,7 +37,7 @@ python3 figureflow.py verify checklist.json --root .
 
 最后一个命令**应该失败**：81 项初始状态均为 `unresolved`，不能自动宣称已验收。前面的检查命令使用模拟输入。检查通过退出码 0，发现差异/未完成退出码 1，输入格式或文件错误退出码 2。
 
-可选：在虚拟环境安装命令入口。安装可能下载 setuptools 构建工具，运行时不需要第三方包。未安装仍可直接运行 figureflow.py。
+可选：在虚拟环境安装命令入口。仅旧审计功能的安装可能下载 setuptools 构建工具，运行时不需要第三方包；科学计算功能使用上面的 `[science]`。未安装仍可直接运行 figureflow.py。
 
 ```sh
 python3 -m venv .venv
@@ -48,6 +58,8 @@ flowchart TD
   A[保存原始数据与最新要求] --> B[逐点来源与样本身份核对]
   B --> C[实验设计与原分析参数核查]
   C --> D[Prism 原生分析和格式统一]
+  C --> J[显式配置 analyze 代码分析与作图]
+  J --> F
   D --> E[校正 P 值与显著性画线计划]
   E --> F[逐面板预览核验]
   F --> G[导出矢量图并排版 AI]
@@ -55,10 +67,12 @@ flowchart TD
   H --> I[保存最终文件与哈希验收]
 ```
 
-完整要求见 [WORKFLOW.md](WORKFLOW.md)，可填写状态见 [checklist.json](checklist.json)，样式基准见 [style-profile.json](style-profile.json)。样式中的 `null` 表示必须从真实参考文件测量，不能用近似颜色或猜测线宽补齐。
+完整要求见 [WORKFLOW.md](WORKFLOW.md)，可填写状态见 [checklist.json](checklist.json)，历史项目样式基准见 [style-profile.json](style-profile.json)。新研究用 `lint --profile generic` 或自定义配置，不能照搬历史组名、颜色、行列和网格距离。样式中的 `null` 表示必须从真实参考文件测量，不能用近似颜色或猜测线宽补齐。
 
 | 工具 | 已实现 | 不能据此宣称 |
 |---|---|---|
+| `inspect` | CSV/TSV/XLSX 结构、缺失及数值列检查 | 已推断实验设计或选好检验 |
+| `analyze` | 按显式设计计算检验、n、效应量/CI（支持项）、校正 P，输出矢量图与哈希报告 | 任何设计均受支持、假设已成立、已编辑原生 Prism/AI |
 | `audit` | CSV 逐点/元数据比较，精确数值比较，排除项核对，观察值/样本计数，源和目标哈希 | 已验证实验真实性、CSV 提取正确或生物学独立性 |
 | `plan` | 从已提供的校正 P 值生成连续目标组画线计划，取最少星号，保留每对结果 | 已计算 P 值、已选对统计模型、已在 Prism 画完线 |
 | `layout` | 核对输入的轴线/角标共线、网格与图例横纵间距 | 已识别 AI 中真实坐标轴、已检查图像无裁切 |
@@ -159,7 +173,7 @@ python3 figureflow.py prism-export example_export.json --directory local/exports
 
 ## 测试与 CI
 
-测试覆盖缺失值、元数据变化、同值样本、明确排除、非法 P、比较合并边界、网格豁免、横纵图例间距、过期证据和脚本注入防护。GitHub Actions 只运行合成数据与代码测试，不打开 Prism/Illustrator，也不上传科研数据。
+测试覆盖缺失值、元数据变化、同值样本、明确排除、非法 P、比较合并边界、网格豁免、横纵图例间距、过期证据和脚本注入防护。新增 8 个合成领域案例和数值/渲染回归，见 [SCIENCE.md](SCIENCE.md)。GitHub Actions 只运行合成数据与代码测试，不打开 Prism/Illustrator，也不上传科研数据。
 
 CI 的 Action 用法参考官方 [checkout](https://github.com/actions/checkout) 和 [setup-python](https://github.com/actions/setup-python)。本机测试通过与 GitHub 远程 CI 成功是两种不同状态，发布时分别报告。
 
@@ -168,3 +182,9 @@ CI 的 Action 用法参考官方 [checkout](https://github.com/actions/checkout)
 将实验文件放在 `local/` 或 `data/` 等被忽略的目录。`.gitignore` 是防误提交措施，不是完整的泄露检测；上传前仍需逐文件审阅。勿提交账号密码、令牌、电子邮箱、私有聊天、本机绝对路径或未经授权的原始数据。
 
 修改核心核验逻辑时补充对应失败案例测试。修改格式规则时同步工作流/配置，并对全部相关面板重新验收。通过代码测试不等于保证所有科研判断和图像都零错误。
+
+## 跨领域合成案例预览
+
+以下全部为程序生成的合成数据，用于测试，不是研究结果。U 形案例刻意展示 Pearson 摘要不足以描述关系；时间序列仅作描述。
+
+![Eight synthetic cross-domain figures](demo-gallery.png)

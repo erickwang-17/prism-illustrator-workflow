@@ -16,6 +16,14 @@ figureflow summary local/data-report.json local/style-report.json --out local/su
 
 先建立 local 目录。--out 只创建新文件。--select 使用完整且无重复的编号；报告包含 selected_rules、full_rule_set 和每条规则实际执行次数。0 次表示未适用，不是已检查。部分通过不等于全图通过。
 
+## 可选样式配置
+
+为保持 v0.2 兼容，`lint` 默认 `--profile uwm`，下表描述这个历史项目配置。跨领域任务明确用 `--profile generic`：不强制 Vav-Cre、Arial、n 斜体、轴加粗或散点横轴无刻度，也不要求对象来自原生 Prism；仍检查字体统一、样本量、顺序、黑色圆边框、误差线、精确参考色和星号。
+
+`--profile generic-profile.json` 可加载完整自定义配置（见文件）。`font=null` 表示以首图实测字体为统一基准；`n_italic/axis_bold/scatter_x_ticks=null` 表示不规定该项；`canonical_names` 映射组 ID 到期望显示名。`require_native` 明确是否要求原生对象，星号大小与加粗可设置。未知或缺失字段报错，不接受任意可执行代码或用户正则。
+
+报告记录 profile 和完整 profile_settings。选择 generic 并非验证了科学合理性；此协议仍仅适用于有样本量图例的声明清单。
+
 ## 规则
 
 | 编号 | 检查 | 纠正方式 |
@@ -60,4 +68,4 @@ group 是机器 ID，显示文字可以使用 Unicode。NA_KO_CMML / NA_KO_AML �
 
 --error-format json 将运行期输入/文件错误放在 stderr，stdout 保持为空；命令行用法错误仍为 argparse 文本。消费者应允许新增字段、拒绝未知 report_version。
 
-summary 只接受版本 1 的 audit/plan/layout/verify/lint 报告，保留状态、版本、范围及报告哈希。任一 fail 则汇总 fail；不重跑、不验证输入仍新鲜、不证明范围完整。最终仍需 verify 与视觉验收。
+summary 只接受版本 1 的 audit/plan/layout/verify/lint/analyze 报告，保留状态、版本、范围及报告哈希。任一 fail 则汇总 fail；不重跑、不验证输入仍新鲜、不证明范围完整。最终仍需 verify 与视觉验收。

@@ -1,6 +1,6 @@
-"""Local figure audit tools. Python 3.10+, standard library only.
+"""Local figure audit tools and optional design-explicit scientific analysis.
 
-Does not infer experimental design, calculate P values, or edit native projects.
+Never infers experimental design or edits native projects. Analyze requires [science].
 """
 import argparse
 import csv
@@ -13,7 +13,7 @@ from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from figureflow_lint import lint_manifest, list_rules
 
-__version__ = '0.2.0'
+__version__ = '0.3.0'
 
 
 def sha256(path):
@@ -299,7 +299,7 @@ def summarize_reports(paths):
         report = load_json(resolved)
         if not isinstance(report, dict) or type(report.get('report_version')) is not int or report['report_version'] != 1:
             raise ValueError('Expected a version 1 figureflow report')
-        if report.get('command') not in ('audit', 'plan', 'layout', 'verify', 'lint') or report.get('status') not in ('pass', 'fail'):
+        if report.get('command') not in ('audit', 'plan', 'layout', 'verify', 'lint', 'analyze') or report.get('status') not in ('pass', 'fail'):
             raise ValueError('Expected a supported check report with pass/fail status')
         if not isinstance(report.get('tool_version'), str) or not report['tool_version']:
             raise ValueError('Report missing tool version')
@@ -319,6 +319,10 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__, allow_abbrev=False)
     parser.add_argument('--version', action='version', version='figureflow ' + __version__)
     subs = parser.add_subparsers(dest='command', required=True)
+    p = subs.add_parser('inspect', help='Inspect CSV/TSV/XLSX without inferring design')
+    p.add_argument('input'); p.add_argument('--sheet')
+    p = subs.add_parser('analyze', help='Run an explicit analysis and render SVG/PDF/PNG')
+    p.add_argument('input'); p.add_argument('--output-dir', required=True)
     p = subs.add_parser('audit', help='Compare source and candidate observations exactly')
     p.add_argument('source'); p.add_argument('candidate'); p.add_argument('--exclusions')
     p = subs.add_parser('plan'); p.add_argument('input')
@@ -328,6 +332,7 @@ def main(argv=None):
     p = subs.add_parser('hash'); p.add_argument('input')
     p = subs.add_parser('lint', help='Check declared figure formatting with numbered rules')
     p.add_argument('input')
+    p.add_argument('--profile', default='uwm', help='uwm (legacy), generic, or strict profile JSON path')
     p.add_argument('--select', help='Comma-separated exact rule codes; omitted means all rules')
     p.add_argument('--format', choices=('json', 'text'), default='json')
     p = subs.add_parser('rules', help='List supported checks and their meanings')
@@ -340,14 +345,21 @@ def main(argv=None):
                        help='Format runtime input/file errors on stderr (usage errors remain text)')
     args = parser.parse_args(argv)
     try:
-        if args.command == 'audit':
+        if args.command == 'inspect':
+            from figureflow_science import inspect_table
+            result = inspect_table(args.input, args.sheet)
+        elif args.command == 'analyze':
+            from figureflow_science import analyze
+            result = analyze(args.input, args.output_dir)
+        elif args.command == 'audit':
             result = audit(args.source, args.candidate, load_json(args.exclusions) if args.exclusions else [])
         elif args.command == 'plan': result = annotation_plan(load_json(args.input))
         elif args.command == 'layout': result = layout_audit(load_json(args.input))
         elif args.command == 'verify': result = verify_evidence(load_json(args.input), args.root)
         elif args.command == 'prism-export': result = prism_export_script(load_json(args.input), args.directory)
         elif args.command == 'lint':
-            result = lint_manifest(load_json(args.input), args.select.split(',') if args.select is not None else None)
+            result = lint_manifest(load_json(args.input), args.select.split(',') if args.select is not None else None,
+                                   args.profile if args.profile in ('uwm', 'generic') else load_json(args.profile))
         elif args.command == 'rules': result = list_rules()
         elif args.command == 'summary': result = summarize_reports(args.inputs)
         else: result = {'status': 'pass', 'sha256': sha256(args.input)}
